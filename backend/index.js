@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { db } from './src/database/index.js';
 import User from './src/models/User.js'
 import authRouter from './src/route/authRouter.js'
+import userRouter from './src/route/userRouter.js'
 
 dotenv.config();
 
@@ -20,12 +21,13 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/user',userRouter);
 
 
-// Connect to database
+
 db();
 
-// Start server
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
