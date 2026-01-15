@@ -1,18 +1,18 @@
 /* Homepage / Explore Page */
 .homepage {
   min-height: 100vh;
-  background-color: #f8f8f8;
+  background-color: #f5f5f5;
   font-family: 'Inter', sans-serif;
 }
 
 /* ==================== HEADER ==================== */
 .header {
-  background-color: #000000;
-  padding: 18px 0;
+  background-color: #1a1a1a;
+  padding: 16px 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
@@ -27,29 +27,35 @@
 
 .logo {
   font-family: 'Oswald', sans-serif;
-  font-size: 32px;
+  font-size: 28px;
   color: #ffffff;
   letter-spacing: -1px;
   margin: 0;
   font-weight: 300;
+  cursor: pointer;
 }
 
 /* Search Bar */
 .search-container {
   position: relative;
- 
-  max-width: 500px;
+  width: 2000px;
 }
 
 .search-input {
   width: 100%;
-  padding: 11px 45px 11px 20px;
-  border-radius: 30px;
+  padding: 11px 45px 11px 18px;
+  border-radius: 25px;
   border: none;
   font-size: 0.9rem;
   background-color: #ffffff;
   color: #333;
   font-family: 'Inter', sans-serif;
+  transition: box-shadow 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .search-input::placeholder {
@@ -63,6 +69,7 @@
   transform: translateY(-50%);
   font-size: 1.1rem;
   color: #666;
+  pointer-events: none;
 }
 
 /* Location Dropdown */
@@ -99,12 +106,12 @@
 
 /* Header Buttons */
 .btn-outline {
-  padding: 9px 22px;
+  padding: 9px 20px;
   background-color: transparent;
   color: #ffffff;
-  border: 1.5px solid #ffffff;
-  border-radius: 30px;
-  font-size: 0.9rem;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -114,16 +121,17 @@
 
 .btn-outline:hover {
   background-color: #ffffff;
-  color: #000000;
+  color: #1a1a1a;
 }
 
 .btn-primary {
-  padding: 10px 24px;
+  padding: 10px 18px;
+  width: 200px;
   background-color: #3b82f6;
   color: #ffffff;
   border: none;
-  border-radius: 30px;
-  font-size: 0.9rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -134,11 +142,12 @@
 .btn-primary:hover {
   background-color: #2563eb;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 /* ==================== MAIN CONTENT ==================== */
 .main-content {
-  background-color: #f8f8f8;
+  background-color: #f5f5f5;
   min-height: calc(100vh - 200px);
   padding: 30px 0 60px 0;
 }
@@ -152,35 +161,36 @@
 /* ==================== TITLE SECTION ==================== */
 .title-section {
   background-color: #ffffff;
-  padding: 35px 40px;
-  border-radius: 8px;
+  padding: 32px 40px;
+  border-radius: 12px;
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .breadcrumb {
   color: #666;
   font-size: 0.85rem;
-  margin-bottom: 12px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 400;
 }
 
 .page-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: 2.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
   margin: 0 0 8px 0;
-  color: #000000;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
   color: #666;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin: 0;
+  font-weight: 400;
 }
 
 .filter-buttons {
@@ -190,11 +200,11 @@
 }
 
 .btn-filter {
-  padding: 10px 22px;
+  padding: 10px 20px;
   background-color: #ffffff;
-  border: 1.5px solid #ddd;
-  border-radius: 30px;
-  font-size: 0.9rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -207,16 +217,16 @@
 
 .btn-filter:hover {
   border-color: #999;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
 }
 
 .btn-high-rating {
-  padding: 10px 22px;
+  padding: 10px 20px;
   background-color: #1a1a1a;
   color: #ffffff;
   border: none;
-  border-radius: 30px;
-  font-size: 0.9rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -229,35 +239,36 @@
 .btn-high-rating:hover {
   background-color: #333;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* ==================== SHOP GRID ==================== */
 .shop-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  gap: 24px;
   margin-bottom: 50px;
 }
 
 /* ==================== SHOP CARD ==================== */
 .shop-card {
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .shop-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
 .shop-image-container {
   position: relative;
   width: 100%;
-  height: 240px;
+  height: 250px;
   overflow: hidden;
   background-color: #f0f0f0;
 }
@@ -266,23 +277,23 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.5s ease;
 }
 
 .shop-card:hover .shop-image {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .favorite-btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 14px;
+  right: 14px;
   background-color: rgba(255, 255, 255, 0.95);
   border: none;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -292,34 +303,36 @@
 }
 
 .favorite-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
   background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .shop-info {
-  padding: 20px;
+  padding: 18px;
 }
 
 .shop-header {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .shop-icon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   background-color: #1a1a1a;
   color: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.1rem;
-  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .shop-details {
@@ -330,15 +343,15 @@
 .shop-name {
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
-  margin: 0 0 6px 0;
-  color: #000000;
+  margin: 0 0 5px 0;
+  color: #1a1a1a;
   font-weight: 700;
   line-height: 1.3;
 }
 
 .shop-address {
   color: #666;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   margin: 0;
   line-height: 1.4;
   overflow: hidden;
@@ -349,26 +362,26 @@
 .shop-rating {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-size: 0.85rem;
   margin-top: 2px;
 }
 
 .rating {
   font-weight: 700;
-  color: #000000;
+  color: #1a1a1a;
   font-size: 0.9rem;
 }
 
 .stars {
   color: #fbbf24;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 1px;
 }
 
 .reviews {
   color: #999;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
 /* ==================== SHOW MORE ==================== */
@@ -378,11 +391,11 @@
 }
 
 .btn-show-more {
-  padding: 14px 50px;
+  padding: 13px 45px;
   background-color: #ffffff;
-  border: 1.5px solid #ddd;
-  border-radius: 30px;
-  font-size: 0.95rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -391,16 +404,17 @@
 }
 
 .btn-show-more:hover {
-  background-color: #f8f8f8;
+  background-color: #fafafa;
   border-color: #999;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ==================== FOOTER ==================== */
 .footer {
-  background-color: #000000;
+  background-color: #1a1a1a;
   color: #ffffff;
-  padding: 70px 0 30px 0;
+  padding: 60px 0 30px 0;
 }
 
 .footer-content {
@@ -409,56 +423,58 @@
   padding: 0 30px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 45px;
 }
 
 .footer-left {
-  max-width: 400px;
+  max-width: 380px;
 }
 
 .footer-logo {
   font-family: 'Oswald', sans-serif;
-  font-size: 1.6rem;
-  letter-spacing: 3px;
-  margin-bottom: 25px;
-  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 22px;
+  font-weight: 300;
 }
 
 .footer-left p {
   color: #999;
-  margin: 6px 0;
-  font-size: 0.95rem;
+  margin: 5px 0;
+  font-size: 0.9rem;
   line-height: 1.6;
 }
 
 .btn-footer {
-  margin-top: 25px;
-  padding: 12px 35px;
+  margin-top: 22px;
+  padding: 11px 32px;
   background-color: #3b82f6;
   color: #ffffff;
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.3s;
+  letter-spacing: 0.5px;
 }
 
 .btn-footer:hover {
   background-color: #2563eb;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .footer-links {
   display: flex;
-  gap: 100px;
+  gap: 90px;
 }
 
 .footer-links h4 {
   font-family: 'Inter', sans-serif;
-  margin-bottom: 20px;
-  font-size: 1rem;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
 }
@@ -470,14 +486,14 @@
 }
 
 .footer-links li {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .footer-links a {
   color: #999;
   text-decoration: none;
   transition: color 0.3s;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .footer-links a:hover {
@@ -487,12 +503,12 @@
 .footer-bottom {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 25px 30px 0 30px;
-  border-top: 1px solid #2a2a2a;
+  padding: 22px 30px 0 30px;
+  border-top: 1px solid #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #666;
 }
 

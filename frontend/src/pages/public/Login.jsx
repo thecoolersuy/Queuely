@@ -4,6 +4,7 @@ import { loginSchema } from './schema/loginSchema';
 import { apiCall } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import '../../styles/auth.css'; 
 
 const Login = () => {
   const navigate = useNavigate();

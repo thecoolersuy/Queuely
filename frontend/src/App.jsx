@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} /> 
         <Route path ="/login" element={<Login />} />   
-        <Route path ="/homepage"v element = {<Homepage />} />
+        <Route path ="/homepage" element = {<Homepage />} />
         
       </Routes>
     </Router>
