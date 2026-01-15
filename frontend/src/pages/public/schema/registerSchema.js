@@ -6,7 +6,7 @@ export const registerSchema = z.object({
     location: z.string()
                .min(1,'Location not found'),
     email : z.string()
-              .email('@gmail.com missing my good sir,correct the format'),
+              .email('jehsan lai dui choti pita ani milxa'),
     password: z.string()
                 .min(6,"My sir, Password should reach upto 6 characters")
 });

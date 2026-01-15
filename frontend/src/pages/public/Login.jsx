@@ -1,0 +1,103 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from './schema/loginSchema';
+import { apiCall } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+const Login = () => {
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      setApiError('');
+      
+      const response = await apiCall('POST', '/auth/login', { data });
+      
+      // Save token to localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      // Redirect to dashboard
+      navigate('/homepage');
+      
+    } catch (error) {
+      setApiError(error.message || 'Login failed');
+    }
+  };
+
+  return (
+    <div className="auth-container">
+      <h1 className="logo">QUEUELY</h1>
+      
+      <div className="form-card">
+        <h2 className="form-title">Let's get you signed in</h2>
+        
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
+          <div className="form-group">
+            <label className="form-label">Username or Email</label>
+            <input
+              type="email"
+              className="form-input"
+              placeholder="Username or Email"
+              {...register('email')}
+            />
+            {errors.email && (
+              <p className="error-message">{errors.email.message}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-input"
+              placeholder="Password"
+              {...register('password')}
+            />
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
+          </div>
+
+          {/* Forgot Password Link */}
+          <div style={{ textAlign: 'right', marginBottom: '20px' }}>
+            <a href="/forgot-password" className="auth-link" style={{ fontSize: '0.9rem' }}>
+              Forgot password?
+            </a>
+          </div>
+
+          {/* API Error */}
+          {apiError && (
+            <p className="error-message" style={{ marginBottom: '15px' }}>
+              {apiError}
+            </p>
+          )}
+
+          {/* Submit Button */}
+          <button type="submit" className="btn-primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          Don't have a Queuely Account?{' '}
+          <a href="/register" className="auth-link">Sign up now</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
