@@ -4,6 +4,7 @@ import { registerSchema } from './schema/registerSchema';
 import { apiCall } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+
 import '../../styles/auth.css'; 
 
 const Register = () => {
@@ -27,12 +28,11 @@ const Register = () => {
       
       const response = await apiCall('POST', '/auth/register', { data: registerData });
       
-      // Save token to localStorage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      // Use AuthContext login method
+      login(response.data.token, response.data.user);
       
-      // Redirect to dashboard or home
-      navigate('/homepage');
+      // Navigate to homepage
+      navigate('/homepage', { replace: true });
       
     } catch (error) {
       setApiError(error.message || 'Registration failed');

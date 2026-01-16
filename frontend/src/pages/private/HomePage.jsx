@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/homepage.css'; 
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('New York');
 
@@ -65,13 +64,6 @@ const HomePage = () => {
     },
   ];
 
-  useEffect(() => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, []);
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -97,11 +89,11 @@ const HomePage = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <span className="search-icon"></span>
+            <span className="search-icon">🔍</span>
           </div>
 
           <div className="location-dropdown" data-testid="location-dropdown">
-
+            <span>📍</span>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -136,7 +128,7 @@ const HomePage = () => {
             </div>
             <div className="filter-buttons">
               <button className="btn-filter" data-testid="filters-btn">Filters</button>
-              <button className="btn-high-rating" data-testid="high-rating-btn">High rating</button>
+              <button className="btn-high-rating" data-testid="high-rating-btn">⭐ High rating</button>
             </div>
           </div>
 
@@ -163,7 +155,6 @@ const HomePage = () => {
             <p>business management system.</p>
             <p>Helping barbers and shops</p>
             <p>succeed since 2015.</p>
-            
           </div>
 
           <div className="footer-links">
@@ -176,7 +167,7 @@ const HomePage = () => {
               </ul>
             </div>
             <div>
-              <h4>Instagram</h4>
+              <h4>Social</h4>
               <ul>
                 <li><a href="#" data-testid="twitter-link">Twitter</a></li>
                 <li><a href="#" data-testid="facebook-link">Facebook</a></li>
@@ -199,13 +190,10 @@ const HomePage = () => {
 
 // Shop Card Component
 const ShopCard = ({ shop }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   return (
     <div className="shop-card" data-testid={`shop-card-${shop.id}`}>
       <div className="shop-image-container">
         <img src={shop.image} alt={shop.name} className="shop-image" data-testid={`shop-image-${shop.id}`} />
-        
       </div>
       <div className="shop-info">
         <div className="shop-header">

@@ -2,9 +2,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { getValidToken } from "../utils/auth";
 
 const PrivateRoutes = () => {
-  const token = getValidToken();
+  const token = getValidToken(); // ← Use validated token
 
-  if (!token) {'kp'
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 

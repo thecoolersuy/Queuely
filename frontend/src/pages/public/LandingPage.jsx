@@ -9,9 +9,9 @@ const LandingPage = () => {
       {/* Header */}
       <header className="landing-header" data-testid="landing-header">
         <div className="landing-header-content">
-          <h1 className="landing-logo" data-testid="landing-logo">QUEUECUT</h1>
+          <h1 className="landing-logo" data-testid="landing-logo">QUEUELY</h1>
           <nav className="landing-nav">
-            <a href="#features" className="nav-link" data-testid="find-barber-link">Find a barber</a>
+            <a href="#features" className="nav-link" data-testid="find-barber-link">Business Account</a>
             <button onClick={() => navigate('/login')} className="btn-outline-white" data-testid="login-btn">
               Login
             </button>
@@ -22,7 +22,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="hero-section" data-testid="hero-section">
         <div className="hero-badge" data-testid="hero-badge">
-          Introducing QUEUECUT AI →
+          Introducing QUEUELY →
         </div>
         
         <h1 className="hero-title" data-testid="hero-title">
@@ -49,7 +49,7 @@ const LandingPage = () => {
       {/* Features Section */}
       <section className="features-section" id="features" data-testid="features-section">
         <div className="features-container">
-          <h2 className="features-title">Everything you need to succeed</h2>
+          <h2 className="features-title">FILL YOUR CHAIR</h2>
           <div className="features-grid">
             <div className="feature-card" data-testid="feature-card-1">
               <div className="feature-icon">📅</div>

@@ -5,6 +5,12 @@
   font-family: 'Inter', sans-serif;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
 /* ==================== HEADER ==================== */
 .header {
   background-color: #1a1a1a;

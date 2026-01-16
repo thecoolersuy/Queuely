@@ -8,6 +8,7 @@ import '../../styles/auth.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  
   const [apiError, setApiError] = useState('');
 
   const {
@@ -24,12 +25,11 @@ const Login = () => {
       
       const response = await apiCall('POST', '/auth/login', { data });
       
-      // Save token to localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      
-      // Redirect to dashboard
-      navigate('/homepage');
+    
+      // Navigate to homepage
+      navigate('/homepage', { replace: true });
       
     } catch (error) {
       setApiError(error.message || 'Login failed');
