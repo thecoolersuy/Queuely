@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/homepage.css'; // We'll create this
+import '../../styles/homepage.css'; 
 
-const Homepage = () => {
+const HomePage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -227,4 +227,4 @@ const ShopCard = ({ shop }) => {
   );
 };
 
-export default Homepage;
+export default HomePage;

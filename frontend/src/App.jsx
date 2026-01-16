@@ -1,18 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './pages/public/Register';
-import Login from './pages/public/Login';
-import Homepage from './pages/private/HomePage';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/register" element={<Register />} /> 
-        <Route path ="/login" element={<Login />} />   
-        <Route path ="/homepage" element = {<Homepage />} />
-        
-      </Routes>
+      <AppRoutes />
     </Router>
   );
 }
