@@ -5,7 +5,7 @@ import PrivateRoutes from "./routes/privateRoute";
 import { getValidToken } from "./utils/auth";
 
 const LandingPage = React.lazy(() => import("./pages/public/LandingPage"));
-const Homepage = React.lazy(() => import("./pages/private/Homepage"));
+const Homepage = React.lazy(() => import("./pages/private/HomePage"));
 const Login = React.lazy(() => import("./pages/public/Login"));
 const Register = React.lazy(() => import("./pages/public/Register"));
 

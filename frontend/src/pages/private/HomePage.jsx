@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/homepage.css'; 
+import { Search, MapPin, Star } from 'lucide-react';
+import useAuth from '../../hooks/useAuth';
+import '../../styles/homepage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -67,12 +69,28 @@ const HomePage = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    // notify other listeners in this window
+    window.dispatchEvent(new Event('token-changed'));
     navigate('/login');
   };
+
+  // Use the auth hook for authentication check and redirect
+  const { isAuthenticated, isLoading } = useAuth();
 
   const handleRegisterBusiness = () => {
     navigate('/business-register');
   };
+
+  // Show loading state while checking authentication
+  if (isLoading) {
+    return (
+      <div className="homepage" data-testid="homepage-loading">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="homepage" data-testid="homepage">
@@ -89,11 +107,11 @@ const HomePage = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <span className="search-icon">🔍</span>
+            <span className="search-icon"><Search size={18} /></span>
           </div>
 
           <div className="location-dropdown" data-testid="location-dropdown">
-            <span>📍</span>
+            <span><MapPin size={18} /></span>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -128,7 +146,7 @@ const HomePage = () => {
             </div>
             <div className="filter-buttons">
               <button className="btn-filter" data-testid="filters-btn">Filters</button>
-              <button className="btn-high-rating" data-testid="high-rating-btn">⭐ High rating</button>
+              <button className="btn-high-rating" data-testid="high-rating-btn"><Star size={14} fill="currentColor" /> High rating</button>
             </div>
           </div>
 
@@ -207,7 +225,11 @@ const ShopCard = ({ shop }) => {
         </div>
         <div className="shop-rating" data-testid={`shop-rating-${shop.id}`}>
           <span className="rating">{shop.rating}</span>
-          <span className="stars">⭐⭐⭐⭐⭐</span>
+          <span className="stars">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={14} fill="#FFD700" color="#FFD700" />
+            ))}
+          </span>
           <span className="reviews">({shop.reviews})</span>
         </div>
       </div>

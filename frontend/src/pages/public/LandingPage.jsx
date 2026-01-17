@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Calendar, Scissors, Users, Star } from 'lucide-react';
 import '../../styles/landingpage.css';
 
 const LandingPage = () => {
@@ -24,22 +25,22 @@ const LandingPage = () => {
         <div className="hero-badge" data-testid="hero-badge">
           Introducing QUEUELY →
         </div>
-        
+
         <h1 className="hero-title" data-testid="hero-title">
           THE ESSENTIAL APP FOR
           <br />
           EVERY BARBER
         </h1>
-        
+
         <p className="hero-subtitle" data-testid="hero-subtitle">
           The only system built for barbers at any level,
           <br />
           whether it's just you or a whole crew.
         </p>
-        
-        <button 
-          onClick={() => navigate('/register')} 
-          className="btn-primary-large" 
+
+        <button
+          onClick={() => navigate('/register')}
+          className="btn-primary-large"
           data-testid="get-started-btn"
         >
           GET STARTED TODAY
@@ -52,25 +53,25 @@ const LandingPage = () => {
           <h2 className="features-title">FILL YOUR CHAIR</h2>
           <div className="features-grid">
             <div className="feature-card" data-testid="feature-card-1">
-              <div className="feature-icon">📅</div>
+              <div className="feature-icon"><Calendar size={32} /></div>
               <h3>Smart Booking</h3>
               <p>Customers book appointments easily. You approve or reject based on availability.</p>
             </div>
-            
+
             <div className="feature-card" data-testid="feature-card-2">
-              <div className="feature-icon">✂️</div>
+              <div className="feature-icon"><Scissors size={32} /></div>
               <h3>Manage Services</h3>
               <p>Create custom services with your own pricing and duration.</p>
             </div>
-            
+
             <div className="feature-card" data-testid="feature-card-3">
-              <div className="feature-icon">👥</div>
+              <div className="feature-icon"><Users size={32} /></div>
               <h3>Team Management</h3>
               <p>Add multiple barbers to your shop and manage their schedules.</p>
             </div>
-            
+
             <div className="feature-card" data-testid="feature-card-4">
-              <div className="feature-icon">⭐</div>
+              <div className="feature-icon"><Star size={32} /></div>
               <h3>Build Reputation</h3>
               <p>Collect reviews and ratings to attract more customers.</p>
             </div>
@@ -82,9 +83,9 @@ const LandingPage = () => {
       <section className="cta-section" data-testid="cta-section">
         <h2 className="cta-title" data-testid="cta-title">Ready to grow your barbershop?</h2>
         <p className="cta-subtitle" data-testid="cta-subtitle">Join thousands of barbers who trust Queuecut</p>
-        <button 
-          onClick={() => navigate('/register')} 
-          className="btn-primary-large" 
+        <button
+          onClick={() => navigate('/register')}
+          className="btn-primary-large"
           data-testid="cta-btn"
         >
           GET STARTED TODAY
@@ -98,28 +99,28 @@ const LandingPage = () => {
             <h3 className="footer-logo" data-testid="footer-logo">QUEUECUT</h3>
             <p>The essential barbershop management system</p>
           </div>
-          
+
           <div className="footer-section">
             <h4>Product</h4>
             <a href="#" data-testid="features-link">Features</a>
             <a href="#" data-testid="pricing-link">Pricing</a>
             <a href="#" data-testid="demo-link">Request Demo</a>
           </div>
-          
+
           <div className="footer-section">
             <h4>Company</h4>
             <a href="#" data-testid="about-link">About</a>
             <a href="#" data-testid="contact-link">Contact</a>
             <a href="#" data-testid="careers-footer-link">Careers</a>
           </div>
-          
+
           <div className="footer-section">
             <h4>Legal</h4>
             <a href="#" data-testid="privacy-link">Privacy</a>
             <a href="#" data-testid="terms-footer-link">Terms</a>
           </div>
         </div>
-        
+
         <div className="footer-bottom">
           <p>© 2025 Queuecut. All rights reserved.</p>
         </div>

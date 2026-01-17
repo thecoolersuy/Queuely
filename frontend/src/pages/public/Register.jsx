@@ -30,6 +30,8 @@ const Register = () => {
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      // Notify other parts of the app (same-window) that token changed
+      window.dispatchEvent(new Event('token-changed'));
       
       // Navigate to homepage
       navigate('/homepage', { replace: true });
