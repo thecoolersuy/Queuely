@@ -5,7 +5,7 @@ import { apiCall } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import '../../styles/auth.css'; 
+import '../../styles/auth.css';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
@@ -22,20 +22,20 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       setApiError('');
-      
+
       // Add role as customer (hidden field)
       const registerData = { ...data, role: 'customer' };
-      
+
       const response = await apiCall('POST', '/auth/register', { data: registerData });
-      
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       // Notify other parts of the app (same-window) that token changed
       window.dispatchEvent(new Event('token-changed'));
-      
+
       // Navigate to homepage
       navigate('/homepage', { replace: true });
-      
+
     } catch (error) {
       setApiError(error.message || 'Registration failed');
     }
@@ -44,10 +44,10 @@ const Register = () => {
   return (
     <div className="auth-container">
       <h1 className="logo">QUEUELY</h1>
-      
+
       <div className="form-card">
         <h2 className="form-title">Let's get you started</h2>
-        
+
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Name */}
           <div className="form-group">
@@ -113,8 +113,8 @@ const Register = () => {
           )}
 
           {/* Submit Button */}
-          <button type="submit" className="btn-primary" disabled={isSubmitting}>
-            {isSubmitting ? 'Signing up...' : 'Sign up'}
+          <button type="submit" className="btn-primary" >
+            Sign up
           </button>
         </form>
 

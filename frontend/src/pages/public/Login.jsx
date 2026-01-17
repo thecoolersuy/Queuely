@@ -14,7 +14,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors},
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -89,8 +89,8 @@ const Login = () => {
           )}
 
           {/* Submit Button */}
-          <button type="submit" className="btn-primary" disabled={isSubmitting}>
-            {isSubmitting ? 'Logging in...' : 'Login'}
+          <button type="submit" className="btn-primary">
+            Login
           </button>
         </form>
 

@@ -8,6 +8,8 @@ const LandingPage = React.lazy(() => import("./pages/public/LandingPage"));
 const Homepage = React.lazy(() => import("./pages/private/HomePage"));
 const Login = React.lazy(() => import("./pages/public/Login"));
 const Register = React.lazy(() => import("./pages/public/Register"));
+const BusinessRegister = React.lazy(() => import("./pages/public/BusinessRegister"));
+const BusinessLogin = React.lazy(() => import("./pages/public/BusinessLogin"));
 
 
 const AppRoutes = () => {
@@ -26,11 +28,15 @@ const AppRoutes = () => {
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/business-register" element={<BusinessRegister />} />
+          <Route path="/business-login" element={<BusinessLogin />} />
         </Route>
 
         {/* Private routes */}
         <Route element={<PrivateRoutes />}>
           <Route path="/homepage" element={<Homepage />} />
+          {/* TODO: Add business dashboard route */}
+          {/* <Route path="/business-dashboard" element={<BusinessDashboard />} /> */}
         </Route>
 
         {/* Fallback */}

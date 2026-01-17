@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { db } from './src/database/index.js';
-import User from './src/models/User.js'
 import authRouter from './src/route/authRouter.js'
-import userRouter from './src/route/userRouter.js'
+import businessAuthRouter from './src/route/businessAuthRouter.js'
+import Business from './src/models/Business.js'
 
 dotenv.config();
 
@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/business-auth', businessAuthRouter);
 
 db();
 

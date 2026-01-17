@@ -12,7 +12,7 @@ const LandingPage = () => {
         <div className="landing-header-content">
           <h1 className="landing-logo" data-testid="landing-logo">QUEUELY</h1>
           <nav className="landing-nav">
-            <a href="#features" className="nav-link" data-testid="find-barber-link">Business Account</a>
+            <a onClick={() => navigate('/business-register')} className="nav-link" data-testid="find-barber-link">Business Account</a>
             <button onClick={() => navigate('/login')} className="btn-outline-white" data-testid="login-btn">
               Login
             </button>

@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../database/index.js'; 
+import { sequelize } from '../database/index.js';
 
 const User = sequelize.define('User', {
   user_id: {
@@ -26,11 +26,6 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  role: {
-    type: DataTypes.ENUM('customer', 'business'),
-    allowNull: false,
-    defaultValue: 'customer',
   },
 }, {
   tableName: 'users',
