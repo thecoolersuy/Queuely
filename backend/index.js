@@ -21,9 +21,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
-app.use('/api/user',userRouter);
-
-
 
 db();
 

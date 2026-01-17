@@ -28,8 +28,8 @@ const Register = () => {
       
       const response = await apiCall('POST', '/auth/register', { data: registerData });
       
-      // Use AuthContext login method
-      login(response.data.token, response.data.user);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       
       // Navigate to homepage
       navigate('/homepage', { replace: true });
