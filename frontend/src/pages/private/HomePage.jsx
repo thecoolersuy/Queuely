@@ -13,7 +13,7 @@ const HomePage = () => {
     {
       id: 1,
       name: 'Razors and Scotch',
-      rating: 5.0,
+      rating: 4.2,
       reviews: 128,
       address: '318 East 65th Street, New York, NY',
       image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&q=80',
@@ -22,7 +22,7 @@ const HomePage = () => {
     {
       id: 2,
       name: 'Barbarossa',
-      rating: 5.0,
+      rating: 2.5,
       reviews: 95,
       address: '1094 Lexington Avenue, New York, NY',
       image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80',
@@ -226,8 +226,8 @@ const ShopCard = ({ shop }) => {
         <div className="shop-rating" data-testid={`shop-rating-${shop.id}`}>
           <span className="rating">{shop.rating}</span>
           <span className="stars">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={14} fill="#FFD700" color="#FFD700" />
+            {[...Array(1)].map((_, i) => (
+              <Star key={i} size={18} fill="#FFD700" color="#FFD700" />
             ))}
           </span>
           <span className="reviews">({shop.reviews})</span>

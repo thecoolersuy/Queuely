@@ -16,11 +16,13 @@ import {
     MoreVertical
 } from 'lucide-react';
 import { apiCall } from '../../utils/api';
+import AddServiceBarberModal from '../../components/AddServiceBarberModal';
 import '../../styles/businessDashboard.css';
 
 const BusinessDashboard = () => {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [stats, setStats] = useState({
         serviceRevenue: '0.00',
         totalBookings: 0,
@@ -166,12 +168,20 @@ const BusinessDashboard = () => {
                 {/* Header */}
                 <div className="dashboard-header">
                     <div className="dashboard-title-section">
-                        <h1>Welcome {user.shopName || 'Business'}!</h1>
-                        <p>Here's what's happening today.</p>
+                        <h1>Business Dashboard</h1>
+                        <p>Welcome back, here's what's happening today.</p>
                     </div>
                     <div className="dashboard-actions">
-                        <button className="btn-secondary">Add Barbers</button>
-                        <button className="btn-primary-dashboard">New Appointment</button>
+                        <button
+                            className="btn-secondary"
+                            onClick={() => setModalOpen(true)}>
+                            Add Barbers</button>
+                        <button
+                            className="btn-primary-dashboard"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            Add Services
+                        </button>
                     </div>
                 </div>
 
@@ -311,6 +321,15 @@ const BusinessDashboard = () => {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Add Service/Barber Modal */}
+                <AddServiceBarberModal
+                    isOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onSuccess={() => {
+                        fetchDashboardData(); // Refresh dashboard data
+                    }}
+                />
             </main>
         </div>
     );

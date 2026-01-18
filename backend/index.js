@@ -5,7 +5,8 @@ import { db } from './src/database/index.js';
 import authRouter from './src/route/authRouter.js'
 import businessAuthRouter from './src/route/businessAuthRouter.js'
 import businessDashboardRouter from './src/route/businessDashboardRouter.js'
-import Business from './src/models/Business.js'
+import serviceRouter from './src/route/serviceRouter.js';
+import barberRouter from './src/route/barberRouter.js';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/business-auth', businessAuthRouter);
 app.use('/api/business-dashboard', businessDashboardRouter);
+app.use('/api/services', serviceRouter); 
+app.use('/api/barbers', barberRouter); 
 
 db();
 
