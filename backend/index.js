@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { db } from './src/database/index.js';
 import authRouter from './src/route/authRouter.js'
 import businessAuthRouter from './src/route/businessAuthRouter.js'
+import businessDashboardRouter from './src/route/businessDashboardRouter.js'
 import Business from './src/models/Business.js'
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/business-auth', businessAuthRouter);
+app.use('/api/business-dashboard', businessDashboardRouter);
 
 db();
 

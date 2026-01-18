@@ -140,15 +140,14 @@ const BusinessLogin = () => {
             <button 
               type="submit" 
               className="btn-business-submit" 
-              disabled={isSubmitting}
             >
-              {isSubmitting ? 'Logging in...' : 'LOGIN'}
+              LOGIN
             </button>
           </form>
 
           <div className="business-auth-footer">
-            Already have a Queuely Business Account?{' '}
-            <a onClick={() => navigate('/business-register')}>Login</a>
+            Don't have a Queuely Business Account?{' '}
+            <a onClick={() => navigate('/business-register')}>Register</a>
           </div>
         </div>
       </div>

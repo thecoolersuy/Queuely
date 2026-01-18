@@ -13,7 +13,7 @@ const BusinessRegister = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm({
         resolver: zodResolver(businessRegisterSchema),
     });
@@ -82,7 +82,7 @@ const BusinessRegister = () => {
                     {/* Testimonial */}
                     <div className="business-testimonial">
                         <p>
-                            "SQUIRE is IN/10 with the way it handles everyone's appointments and organizes our client database perfectly."
+                            "QUEUELY is IN/10 with the way it handles everyone's appointments and organizes our client database perfectly."
                         </p>
                         <div className="testimonial-author">
                             <div className="testimonial-avatar">K</div>
@@ -227,9 +227,8 @@ const BusinessRegister = () => {
                         <button
                             type="submit"
                             className="btn-business-submit"
-                            disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Creating Account...' : 'CONTINUE'}
+                            CONTINUE
                         </button>
                     </form>
 

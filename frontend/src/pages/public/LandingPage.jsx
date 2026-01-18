@@ -96,7 +96,7 @@ const LandingPage = () => {
       <footer className="landing-footer" data-testid="landing-footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-logo" data-testid="footer-logo">QUEUECUT</h3>
+            <h3 className="footer-logo" data-testid="footer-logo">QUEUELY</h3>
             <p>The essential barbershop management system</p>
           </div>
 
@@ -122,7 +122,7 @@ const LandingPage = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2025 Queuecut. All rights reserved.</p>
+          <p>© 2025 Queuely. All rights reserved.</p>
         </div>
       </footer>
     </div>
