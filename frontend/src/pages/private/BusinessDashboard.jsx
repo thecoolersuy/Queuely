@@ -207,9 +207,9 @@ const BusinessDashboard = () => {
                         <Users className="nav-icon" />
                         <span>Barbers</span>
                     </button>
-                    <button onClick={() => setActiveView('inventory')} className={`nav-item ${activeView === 'inventory' ? 'active' : ''}`}>
+                    <button onClick={() => setActiveView('profile')} className={`nav-item ${activeView === 'profile' ? 'active' : ''}`}>
                         <Package className="nav-icon" />
-                        <span>Inventory</span>
+                        <span>Profile</span>
                     </button>
                     <button onClick={() => setActiveView('reports')} className={`nav-item ${activeView === 'reports' ? 'active' : ''}`}>
                         <BarChart3 className="nav-icon" />
@@ -495,7 +495,7 @@ const BusinessDashboard = () => {
                 {activeView === 'barbers' && (
                     <div className="barbers-section">
                         <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                            <h2 style={{ color: 'black'}}>Barbers</h2>
+                            <h2 style={{ color: 'black' }}>Barbers</h2>
                             <button className="btn-primary-dashboard" onClick={() => setModalOpen(true)}>Add Barber</button>
                         </div>
                         <div className="barbers-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
@@ -504,7 +504,7 @@ const BusinessDashboard = () => {
                                     <div className="barber-avatar" style={{ width: '64px', height: '64px', background: '#eff6ff', borderRadius: '50%', margin: '0 auto 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '600', color: '#2563eb' }}>
                                         {barber.name.charAt(0)}
                                     </div>
-                                    <h3 style={{ color: 'black',fontSize: '18px', fontWeight: '600', marginBottom: '5px' }}>{barber.name}</h3>
+                                    <h3 style={{ color: 'black', fontSize: '18px', fontWeight: '600', marginBottom: '5px' }}>{barber.name}</h3>
                                     <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '15px' }}>{barber.specialization || 'General Barber'}</p>
                                     <div className="barber-stats" style={{ display: 'flex', justifyContent: 'center', gap: '15px', fontSize: '14px', color: '#4b5563' }}>
                                         <span>{barber.experience || 0} Years Exp.</span>
