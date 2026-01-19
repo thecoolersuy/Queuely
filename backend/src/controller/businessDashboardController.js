@@ -1,5 +1,6 @@
 import Booking from '../models/Booking.js';
 import Service from '../models/Service.js';
+import Barber from '../models/Barber.js';
 import { Op } from 'sequelize';
 
 // Get Dashboard Stats
@@ -25,6 +26,11 @@ export const getDashboardStats = async (req, res) => {
             where: { business_id }
         });
 
+        // Total Barbers
+        const totalBarbers = await Barber.count({
+            where: { business_id }
+        });
+
         // Total Net Sales (completed bookings)
         const totalNetSales = await Booking.sum('amount', {
             where: {
@@ -39,6 +45,7 @@ export const getDashboardStats = async (req, res) => {
                 serviceRevenue: parseFloat(totalRevenue).toFixed(2),
                 totalBookings,
                 totalServices,
+                totalBarbers,
                 totalNetSales: parseFloat(totalNetSales).toFixed(2),
             }
         });
@@ -68,6 +75,29 @@ export const getRecentBookings = async (req, res) => {
         });
     } catch (error) {
         console.error('Get recent bookings error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+// Get All Bookings
+export const getAllBookings = async (req, res) => {
+    try {
+        const business_id = req.user.userId;
+
+        const bookings = await Booking.findAll({
+            where: { business_id },
+            order: [['createdAt', 'DESC']]
+        });
+
+        res.status(200).json({
+            success: true,
+            data: bookings
+        });
+    } catch (error) {
+        console.error('Get all bookings error:', error);
         res.status(500).json({
             success: false,
             message: 'Server error'
