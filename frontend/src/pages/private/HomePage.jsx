@@ -1,70 +1,54 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Star } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
+import { apiCall } from '../../utils/api';
 import '../../styles/homepage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('New York');
+  const [barbershops, setBarbershops] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const barbershops = [
-    {
-      id: 1,
-      name: 'Razors and Scotch',
-      rating: 4.2,
-      reviews: 128,
-      address: '318 East 65th Street, New York, NY',
-      image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&q=80',
-      initials: 'RS'
-    },
-    {
-      id: 2,
-      name: 'Barbarossa',
-      rating: 2.5,
-      reviews: 95,
-      address: '1094 Lexington Avenue, New York, NY',
-      image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80',
-      initials: 'BB'
-    },
-    {
-      id: 3,
-      name: 'Artisan Barber',
-      rating: 5.0,
-      reviews: 203,
-      address: '311 East 3 Street, Manhattan, NY',
-      image: 'https://images.unsplash.com/photo-1610475680335-dafab5475150?w=500&q=80',
-      initials: 'AB'
-    },
-    {
-      id: 4,
-      name: 'Elegant Barbershop',
-      rating: 5.0,
-      reviews: 156,
-      address: '317 East 67th Street, New York, NY',
-      image: 'https://images.unsplash.com/photo-1647140655214-e4a2d914971f?w=500&q=80',
-      initials: 'EB'
-    },
-    {
-      id: 5,
-      name: 'Beyond The Beard',
-      rating: 5.0,
-      reviews: 89,
-      address: '194 E 11th Street, New York, NY',
-      image: 'https://images.unsplash.com/photo-1621645582931-d1d3e6564943?w=500&q=80',
-      initials: 'BTB'
-    },
-    {
-      id: 6,
-      name: 'Midtown East Barbers',
-      rating: 5.0,
-      reviews: 142,
-      address: '956 2 37 Avenue, New York, NY',
-      image: 'https://images.unsplash.com/photo-1667539916671-b9e7039ccee5?w=500&q=80',
-      initials: 'ME'
-    },
-  ];
+  // Use the auth hook for authentication check and redirect
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const [userLocation, setUserLocation] = useState('New York');
+
+  useEffect(() => {
+    // Get user location from local storage (it should be saved on login usually)
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.location) {
+      setUserLocation(user.location);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchBusinesses = async () => {
+      try {
+        // We can use the token if available, or make this a public route if desired.
+        // The router currently requires authentication.
+        const token = localStorage.getItem('token');
+        if (token) {
+          const response = await apiCall('GET', '/user/businesses', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (response.data.success) {
+            setBarbershops(response.data.data);
+          }
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch businesses", error);
+        setLoading(false);
+      }
+    };
+
+    if (!authLoading) {
+      fetchBusinesses();
+    }
+  }, [authLoading]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -74,15 +58,12 @@ const HomePage = () => {
     navigate('/login');
   };
 
-  // Use the auth hook for authentication check and redirect
-  const { isAuthenticated, isLoading } = useAuth();
-
   const handleRegisterBusiness = () => {
     navigate('/business-register');
   };
 
   // Show loading state while checking authentication
-  if (isLoading) {
+  if (authLoading || loading) {
     return (
       <div className="homepage" data-testid="homepage-loading">
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -110,18 +91,9 @@ const HomePage = () => {
             <span className="search-icon"><Search size={18} /></span>
           </div>
 
-          <div className="location-dropdown" data-testid="location-dropdown">
+          <div className="location-display" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'white', fontWeight: '500' }}>
             <span><MapPin size={18} /></span>
-            <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="location-select"
-              data-testid="location-select"
-            >
-              <option value="New York">New York</option>
-              <option value="Los Angeles">Los Angeles</option>
-              <option value="Chicago">Chicago</option>
-            </select>
+            <span>{userLocation}</span>
           </div>
 
           <button onClick={handleLogout} className="btn-outline" data-testid="logout-btn">
@@ -140,9 +112,9 @@ const HomePage = () => {
           {/* Title Section */}
           <div className="title-section" data-testid="title-section">
             <div>
-              <p className="breadcrumb" data-testid="breadcrumb">Marketplace › New York</p>
-              <h2 className="page-title" data-testid="page-title">Find a haircut in New York</h2>
-              <p className="subtitle" data-testid="subtitle">128 shops found nearby</p>
+              <p className="breadcrumb" data-testid="breadcrumb">Marketplace › {userLocation}</p>
+              <h2 className="page-title" data-testid="page-title">Find a haircut in {userLocation}</h2>
+              <p className="subtitle" data-testid="subtitle">{barbershops.length} shops found</p>
             </div>
             <div className="filter-buttons">
               <button className="btn-filter" data-testid="filters-btn">Filters</button>
@@ -152,9 +124,13 @@ const HomePage = () => {
 
           {/* Barbershop Grid */}
           <div className="shop-grid" data-testid="shop-grid">
-            {barbershops.map((shop) => (
-              <ShopCard key={shop.id} shop={shop} />
-            ))}
+            {barbershops.length === 0 ? (
+              <p>No barbershops found.</p>
+            ) : (
+              barbershops.map((shop) => (
+                <ShopCard key={shop.business_id} shop={shop} />
+              ))
+            )}
           </div>
 
           {/* Show More */}
@@ -208,29 +184,37 @@ const HomePage = () => {
 
 // Shop Card Component
 const ShopCard = ({ shop }) => {
+  const imageUrl = shop.profileImage
+    ? `http://localhost:5000/${shop.profileImage}`
+    : null;
+
   return (
-    <div className="shop-card" data-testid={`shop-card-${shop.id}`}>
+    <div className="shop-card" data-testid={`shop-card-${shop.business_id}`}>
       <div className="shop-image-container">
-        <img src={shop.image} alt={shop.name} className="shop-image" data-testid={`shop-image-${shop.id}`} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={shop.shopName} className="shop-image" data-testid={`shop-image-${shop.business_id}`} />
+        ) : (
+          <div style={{ width: '100%', height: '100%', backgroundColor: '#f3f4f6' }} data-testid={`shop-image-placeholder-${shop.business_id}`}></div>
+        )}
       </div>
       <div className="shop-info">
         <div className="shop-header">
-          <div className="shop-icon" data-testid={`shop-icon-${shop.id}`}>
-            {shop.initials}
+          <div className="shop-icon" data-testid={`shop-icon-${shop.business_id}`}>
+            {shop.shopName ? shop.shopName.charAt(0) : 'B'}
           </div>
           <div>
-            <h3 className="shop-name" data-testid={`shop-name-${shop.id}`}>{shop.name}</h3>
-            <p className="shop-address" data-testid={`shop-address-${shop.id}`}>{shop.address}</p>
+            <h3 className="shop-name" data-testid={`shop-name-${shop.business_id}`}>{shop.shopName}</h3>
+            <p className="shop-address" data-testid={`shop-address-${shop.business_id}`}>{shop.country}</p>
           </div>
         </div>
-        <div className="shop-rating" data-testid={`shop-rating-${shop.id}`}>
-          <span className="rating">{shop.rating}</span>
+        <div className="shop-rating" data-testid={`shop-rating-${shop.business_id}`}>
+          <span className="rating">5.0</span>
           <span className="stars">
             {[...Array(1)].map((_, i) => (
               <Star key={i} size={18} fill="#FFD700" color="#FFD700" />
             ))}
           </span>
-          <span className="reviews">({shop.reviews})</span>
+          <span className="reviews">(0)</span>
         </div>
       </div>
     </div>

@@ -19,10 +19,12 @@ import {
     Droplets,
     Zap,
     Crown,
-    Brush
+    Brush,
+    Building
 } from 'lucide-react';
 import { apiCall } from '../../utils/api';
 import AddServiceBarberModal from '../../components/AddServiceBarberModal';
+import BusinessProfile from '../../components/BusinessProfile';
 import '../../styles/businessDashboard.css'; // Keep this style file, but you might need to update it for buttons in nav
 
 const BusinessDashboard = () => {
@@ -44,7 +46,11 @@ const BusinessDashboard = () => {
     const [services, setServices] = useState([]);
     const [barbers, setBarbers] = useState([]);
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
+
+    const refreshUser = () => {
+        setUser(JSON.parse(localStorage.getItem('user') || '{}'));
+    };
 
     useEffect(() => {
         if (activeView === 'overview') {
@@ -106,13 +112,10 @@ const BusinessDashboard = () => {
     const fetchDashboardData = async () => {
         try {
             const token = localStorage.getItem('token');
-
-            // Fetch stats
             const statsResponse = await apiCall('GET', '/business-dashboard/stats', {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            // Fetch bookings
             const bookingsResponse = await apiCall('GET', '/business-dashboard/bookings', {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -208,8 +211,8 @@ const BusinessDashboard = () => {
                         <span>Barbers</span>
                     </button>
                     <button onClick={() => setActiveView('profile')} className={`nav-item ${activeView === 'profile' ? 'active' : ''}`}>
-                        <Package className="nav-icon" />
-                        <span>Profile</span>
+                        <Building className="nav-icon" />
+                        <span>Business Profile</span>
                     </button>
                     <button onClick={() => setActiveView('reports')} className={`nav-item ${activeView === 'reports' ? 'active' : ''}`}>
                         <BarChart3 className="nav-icon" />
@@ -515,11 +518,8 @@ const BusinessDashboard = () => {
                         </div>
                     </div>
                 )}
-                {activeView === 'inventory' && (
-                    <div className="dashboard-header">
-                        <h1>Inventory</h1>
-                        <p>Inventory management coming soon.</p>
-                    </div>
+                {activeView === 'profile' && (
+                    <BusinessProfile onProfileUpdate={refreshUser} />
                 )}
 
                 {activeView === 'reports' && (
