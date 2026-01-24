@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from './schema/registerSchema';
 import { apiCall } from '../../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
 import '../../styles/auth.css';
@@ -43,6 +44,10 @@ const Register = () => {
 
   return (
     <div className="auth-container">
+      <Link to="/" className="back-button">
+        <ArrowLeft size={20} />
+        Back to Home
+      </Link>
       <h1 className="logo">QUEUELY</h1>
 
       <div className="form-card">

@@ -2,19 +2,20 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from './schema/loginSchema';
 import { apiCall } from '../../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
-import '../../styles/auth.css'; 
+import '../../styles/auth.css';
 
 const Login = () => {
   const navigate = useNavigate();
-  
+
   const [apiError, setApiError] = useState('');
 
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -22,17 +23,17 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setApiError('');
-      
+
       const response = await apiCall('POST', '/auth/login', { data });
-      
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       // Notify other parts of the app (same-window) that token changed
       window.dispatchEvent(new Event('token-changed'));
-    
+
       // Navigate to homepage
       navigate('/homepage', { replace: true });
-      
+
     } catch (error) {
       setApiError(error.message || 'Login failed');
     }
@@ -40,11 +41,15 @@ const Login = () => {
 
   return (
     <div className="auth-container">
+      <Link to="/" className="back-button">
+        <ArrowLeft size={20} />
+        Back to Home
+      </Link>
       <h1 className="logo">QUEUELY</h1>
-      
+
       <div className="form-card">
         <h2 className="form-title">Let's get you signed in</h2>
-        
+
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
           <div className="form-group">

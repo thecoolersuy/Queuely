@@ -139,11 +139,48 @@ body {
 }
 
 /* Headings use Oswald */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Oswald', sans-serif;
 }
 
 /* Body text uses Inter */
-p, span, a, button, input, textarea {
+p,
+span,
+a,
+button,
+input,
+textarea {
   font-family: 'Inter', sans-serif;
+}
+
+/* Back Button */
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #888888;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
 }

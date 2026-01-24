@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { businessRegisterSchema } from './schema/businessRegisterSchema';
 import { apiCall } from '../../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import '../../styles/businessAuth.css';
 
@@ -38,6 +39,10 @@ const BusinessRegister = () => {
 
     return (
         <div className="business-auth-container">
+            <Link to="/" className="back-button">
+                <ArrowLeft size={20} />
+                Back to Home
+            </Link>
             {/* Left Section */}
             <div className="business-auth-left">
                 <h2>STAY SHARP<br />AND<br />BUSINESS<br />SAVVY</h2>

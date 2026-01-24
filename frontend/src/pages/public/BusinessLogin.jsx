@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { businessLoginSchema } from './schema/businessLoginSchema';
 import { apiCall } from '../../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import '../../styles/businessAuth.css';
 
@@ -21,16 +22,16 @@ const BusinessLogin = () => {
   const onSubmit = async (data) => {
     try {
       setApiError('');
-      
+
       const response = await apiCall('POST', '/business-auth/login', { data });
-      
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       window.dispatchEvent(new Event('token-changed'));
-      
+
       // Navigate to business dashboard
       navigate('/business-dashboard', { replace: true });
-      
+
     } catch (error) {
       setApiError(error.message || 'Login failed');
     }
@@ -38,6 +39,10 @@ const BusinessLogin = () => {
 
   return (
     <div className="business-auth-container">
+      <Link to="/" className="back-button">
+        <ArrowLeft size={20} />
+        Back to Home
+      </Link>
       {/* Left Section */}
       <div className="business-auth-left">
         <h2>STAY SHARP<br />AND<br />BUSINESS<br />SAVVY</h2>
@@ -54,13 +59,13 @@ const BusinessLogin = () => {
         <div className="business-auth-header">
           <div className="business-logo">QUEUELY</div>
           <div className="business-header-buttons">
-            <button 
+            <button
               className="btn-business-account"
               onClick={() => navigate('/business-register')}
             >
               Business Account
             </button>
-            <button 
+            <button
               className="btn-get-started"
               onClick={() => navigate('/register')}
             >
@@ -73,7 +78,7 @@ const BusinessLogin = () => {
           <p className="business-form-subtitle">
             FILL THIS FORM IF YOU ARE A BARBER OR OWN A BARBERSHOP
           </p>
-          
+
           <h1 className="business-form-title">WELCOME BACK, SIR!</h1>
           <p className="business-form-description">
             Ready to spice up your business
@@ -137,9 +142,9 @@ const BusinessLogin = () => {
             )}
 
             {/* Submit Button */}
-            <button 
-              type="submit" 
-              className="btn-business-submit" 
+            <button
+              type="submit"
+              className="btn-business-submit"
             >
               LOGIN
             </button>
