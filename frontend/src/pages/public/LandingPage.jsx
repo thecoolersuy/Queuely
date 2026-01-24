@@ -21,7 +21,7 @@ const LandingPage = () => {
           <h1 className="landing-logo" data-testid="landing-logo">QUEUELY</h1>
           <nav className="landing-nav">
             <a href="#features" className="nav-link">Features</a>
-            <a href="#pricing" className="nav-link">Pricing</a>
+            <a href="#loyalty" className="nav-link">Pricing</a>
             <a onClick={() => navigate('/business-register')} className="nav-link" data-testid="find-barber-link">Business</a>
             <button onClick={() => navigate('/login')} className="btn-outline-white" data-testid="login-btn">
               Login
@@ -100,7 +100,7 @@ const LandingPage = () => {
       </section>
 
       {/* Lock In Loyalty Section */}
-      <section className="feature-section-alt dark-section" data-testid="loyalty-section">
+      <section className="feature-section-alt dark-section" id="loyalty" data-testid="loyalty-section">
         <div className="feature-content-wrapper reverse">
           <div className="feature-text-content">
             <h2 className="feature-section-title">

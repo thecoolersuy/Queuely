@@ -250,6 +250,15 @@
     color: #666666;
 }
 
+.business-form-input:-webkit-autofill,
+.business-form-input:-webkit-autofill:hover,
+.business-form-input:-webkit-autofill:focus,
+.business-form-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #0a0a0a inset !important;
+    -webkit-text-fill-color: white !important;
+}
+
+
 .business-form-select {
     cursor: pointer;
     appearance: none;
