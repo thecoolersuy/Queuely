@@ -9,7 +9,7 @@
     display: flex;
     background-color: #000000;
     color: #ffffff;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+   
 }
 
 /* Left Section */
@@ -215,6 +215,7 @@
 
 .business-form-group {
     margin-bottom: 20px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .business-form-label {
@@ -225,6 +226,7 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .business-form-input,

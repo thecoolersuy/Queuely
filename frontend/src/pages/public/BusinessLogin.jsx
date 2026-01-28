@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import '../../styles/businessAuth.css';
+import queuelyLogo from '../../assets/queuelylogo.png';
 
 const BusinessLogin = () => {
   const navigate = useNavigate();
@@ -57,7 +58,10 @@ const BusinessLogin = () => {
       {/* Right Section */}
       <div className="business-auth-right">
         <div className="business-auth-header">
-          <div className="business-logo">QUEUELY</div>
+          <div className="business-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '70px',height: '70px' }} />
+            <span style={{ fontSize: '35px' }}>QUEUELY</span>
+          </div>
           <div className="business-header-buttons">
             <button
               className="btn-business-account"

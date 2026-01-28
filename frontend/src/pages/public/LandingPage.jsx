@@ -9,6 +9,7 @@ import analyticsMockup from '../../assets/queuely1.png';
 import barberCustomerPhoto from '../../assets/barber_customer_photo.png';
 import bookingInterfacePhoto from '../../assets/booking_interface_photo.png';
 import happyBarberPhoto from '../../assets/happy_barber_photo.png';
+import queuelyLogo from '../../assets/queuelylogo.png';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -18,7 +19,10 @@ const LandingPage = () => {
       {/* Header */}
       <header className="landing-header" data-testid="landing-header">
         <div className="landing-header-content">
-          <h1 className="landing-logo" data-testid="landing-logo">QUEUELY</h1>
+          <div className="landing-logo" data-testid="landing-logo">
+            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '82px', height: '82px', marginRight: '1px' }} />
+            <h1 style={{ margin: 0, fontSize: '35px' }}>QUEUELY</h1>
+          </div>
           <nav className="landing-nav">
             <a href="#features" className="nav-link">Features</a>
             <a href="#loyalty" className="nav-link">Pricing</a>
@@ -175,7 +179,10 @@ const LandingPage = () => {
       <footer className="landing-footer" data-testid="landing-footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-logo" data-testid="footer-logo">QUEUELY</h3>
+            <div className="footer-logo" data-testid="footer-logo">
+              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '40px', marginRight: '6px' }} />
+              <h3 style={{ margin: 0, fontSize: '40px' }}>QUEUELY</h3>
+            </div>
             <p>The essential barbershop management system</p>
           </div>
 

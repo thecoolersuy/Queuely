@@ -4,6 +4,7 @@ import { Search, MapPin, Star } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
 import { apiCall } from '../../utils/api';
 import '../../styles/homepage.css';
+import queuelyLogo from '../../assets/queuelylogo.png';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -77,8 +78,10 @@ const HomePage = () => {
     <div className="homepage" data-testid="homepage">
       <header className="header" data-testid="header">
         <div className="header-content">
-          <h1 className="logo" data-testid="logo">QUEUELY</h1>
-
+          <div className="logo" data-testid="logo" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '75px',height: '75px' }} />
+            <h1 style={{ margin: 0, fontSize: '32px' }}>QUEUELY</h1>
+          </div>
           <div className="search-container">
             <input
               type="text"
@@ -144,7 +147,10 @@ const HomePage = () => {
       <footer className="footer" data-testid="footer">
         <div className="footer-content">
           <div className="footer-left">
-            <h3 className="footer-logo" data-testid="footer-logo">QUEUELY</h3>
+            <div className="footer-logo" data-testid="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
+              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '40px' }} />
+              <h3 style={{ margin: 0, fontSize: '40px' }}>QUEUELY</h3>
+            </div>
             <p>The only all-in-one barbershop</p>
             <p>business management system.</p>
             <p>Helping barbers and shops</p>

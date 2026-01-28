@@ -4,7 +4,7 @@ import { getValidToken } from '../utils/auth';
 
 /**
  * Custom hook to check authentication status.
- * Redirects to /login if the token is invalid or corrupted.
+ * Redirects to / (landing page) if the token is invalid or corrupted.
  * 
  * @returns {Object} - { isAuthenticated, isLoading }
  */
@@ -18,7 +18,7 @@ const useAuth = () => {
         const token = getValidToken();
 
         if (!token) {
-            navigate('/login', { replace: true });
+            navigate('/', { replace: true });
             return;
         }
 
@@ -31,7 +31,7 @@ const useAuth = () => {
                 setTimeout(() => {
                     if (!getValidToken()) {
                         setIsAuthenticated(false);
-                        navigate('/login', { replace: true });
+                        navigate('/', { replace: true });
                     }
                 }, 100);
             }
@@ -41,7 +41,7 @@ const useAuth = () => {
         const handleTokenChanged = () => {
             if (!getValidToken()) {
                 setIsAuthenticated(false);
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             }
         };
 
@@ -49,7 +49,7 @@ const useAuth = () => {
         const tokenCheckInterval = setInterval(() => {
             if (!getValidToken()) {
                 setIsAuthenticated(false);
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             }
         }, 1000);
 

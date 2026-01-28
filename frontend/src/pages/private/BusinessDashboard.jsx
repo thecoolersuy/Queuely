@@ -26,6 +26,7 @@ import { apiCall } from '../../utils/api';
 import AddServiceBarberModal from '../../components/AddServiceBarberModal';
 import BusinessProfile from '../../components/BusinessProfile';
 import '../../styles/businessDashboard.css'; // Keep this style file, but you might need to update it for buttons in nav
+import queuelyLogo from '../../assets/queuelylogo.png';
 
 const BusinessDashboard = () => {
     const navigate = useNavigate();
@@ -188,8 +189,11 @@ const BusinessDashboard = () => {
 
             {/* Sidebar */}
             <aside className={`dashboard-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
-                <div className="sidebar-logo">
-                    QUEUELY
+                <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '45px' }} />
+                        <span style={{ fontSize: '28px', fontWeight: 'bold' }}>QUEUELY</span>
+                    </div>
                     <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>BUSINESS DASHBOARD</p>
                 </div>
 
