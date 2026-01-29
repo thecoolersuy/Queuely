@@ -9,12 +9,14 @@ html {
   scrollbar-gutter: stable;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
+
 /* ==================== HEADER ==================== */
 .header {
   background-color: #1a1a1a;
@@ -35,8 +37,7 @@ html, body {
 }
 
 .header .logo {
-  font-family: 'Oswald', sans-serif;
-  font-size: 28px;
+  font-family: 'Inter', sans-serif;
   color: #ffffff;
   letter-spacing: -1px;
   margin: 0;
@@ -53,6 +54,7 @@ html, body {
   max-width: 520px;
   margin: 0 12px;
 }
+
 .header .search-input {
   width: 100%;
   padding: 10px 44px 10px 16px;
@@ -449,7 +451,7 @@ html, body {
 }
 
 .footer-logo {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.5rem;
   letter-spacing: -0.5px;
   margin-bottom: 22px;
@@ -568,6 +570,7 @@ html, body {
 
 /* Mobile (max 767px) */
 @media (max-width: 767px) {
+
   /* Header - Mobile */
   .header-content {
     flex-wrap: wrap;
@@ -595,7 +598,8 @@ html, body {
   }
 
   .btn-outline {
-    display: none; /* Hide Log Out on mobile */
+    display: none;
+    /* Hide Log Out on mobile */
   }
 
   .btn-primary {

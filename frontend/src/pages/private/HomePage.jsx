@@ -78,9 +78,9 @@ const HomePage = () => {
     <div className="homepage" data-testid="homepage">
       <header className="header" data-testid="header">
         <div className="header-content">
-          <div className="logo" data-testid="logo" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '75px',height: '75px' }} />
-            <h1 style={{ margin: 0, fontSize: '32px' }}>QUEUELY</h1>
+          <div className="logo" data-testid="logo" style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
+            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '66px',height: '66px' }} />
+            <h1 style={{ margin: 0, fontSize: '28px' }}>QUEUELY</h1>
           </div>
           <div className="search-container">
             <input
@@ -190,12 +190,18 @@ const HomePage = () => {
 
 // Shop Card Component
 const ShopCard = ({ shop }) => {
+  const navigate = useNavigate();
+  
   const imageUrl = shop.profileImage
     ? `http://localhost:5000/${shop.profileImage}`
     : null;
 
+  const handleClick = () => {
+    navigate(`/barbershop/${shop.business_id}`);
+  };
+
   return (
-    <div className="shop-card" data-testid={`shop-card-${shop.business_id}`}>
+    <div className="shop-card" data-testid={`shop-card-${shop.business_id}`} onClick={handleClick} style={{ cursor: 'pointer' }}>
       <div className="shop-image-container">
         {imageUrl ? (
           <img src={imageUrl} alt={shop.shopName} className="shop-image" data-testid={`shop-image-${shop.business_id}`} />

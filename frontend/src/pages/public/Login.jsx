@@ -46,9 +46,9 @@ const Login = () => {
         <ArrowLeft size={20} />
         Back to Home
       </Link>
-      <div className="logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-        <img src={queuelyLogo} alt="Queuely Logo" style={{ width:'80px' , height: '80px' }} />
-        <h1 style={{ margin: 0, fontSize: '40px' }}>QUEUELY</h1>
+      <div className="logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1px' }}>
+        <img src={queuelyLogo} alt="Queuely Logo" style={{ width:'70px' , height: '70px' }} />
+        <h1 style={{ margin: 0, fontSize: '36px' }}>QUEUELY</h1>
       </div>
 
       <div className="form-card">

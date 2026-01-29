@@ -11,6 +11,7 @@ const Register = React.lazy(() => import("./pages/public/Register"));
 const BusinessRegister = React.lazy(() => import("./pages/public/BusinessRegister"));
 const BusinessLogin = React.lazy(() => import("./pages/public/BusinessLogin"));
 const BusinessDashboard = React.lazy(() => import("./pages/private/BusinessDashboard"));
+const BarberShopInfoPage = React.lazy(() => import("./pages/private/BarberShopInfoPage"));
 
 
 const AppRoutes = () => {
@@ -37,6 +38,7 @@ const AppRoutes = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
+          <Route path="/barbershop/:id" element={<BarberShopInfoPage />} />
         </Route>
 
         {/* Fallback */}

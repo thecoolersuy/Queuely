@@ -20,8 +20,8 @@ const LandingPage = () => {
       <header className="landing-header" data-testid="landing-header">
         <div className="landing-header-content">
           <div className="landing-logo" data-testid="landing-logo">
-            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '82px', height: '82px', marginRight: '1px' }} />
-            <h1 style={{ margin: 0, fontSize: '35px' }}>QUEUELY</h1>
+            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '74px', height: '74px', marginRight: '1px' }} />
+            <h1 style={{ margin: 0, fontSize: '30px' }}>QUEUELY</h1>
           </div>
           <nav className="landing-nav">
             <a href="#features" className="nav-link">Features</a>
@@ -180,8 +180,8 @@ const LandingPage = () => {
         <div className="footer-content">
           <div className="footer-section">
             <div className="footer-logo" data-testid="footer-logo">
-              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '40px', marginRight: '6px' }} />
-              <h3 style={{ margin: 0, fontSize: '40px' }}>QUEUELY</h3>
+              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '60px', marginRight: '1px' }} />
+              <h3 style={{ margin: 0, fontSize: '32px' }}>QUEUELY</h3>
             </div>
             <p>The essential barbershop management system</p>
           </div>

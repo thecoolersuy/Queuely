@@ -9,6 +9,7 @@ import businessDashboardRouter from './src/route/businessDashboardRouter.js'
 import serviceRouter from './src/route/serviceRouter.js';
 import barberRouter from './src/route/barberRouter.js';
 import userRouter from './src/route/userRouter.js';
+import businessRouter from './src/route/businessRouter.js';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use('/api/services', serviceRouter);
 app.use('/api/services', serviceRouter);
 app.use('/api/barbers', barberRouter);
 app.use('/api/user', userRouter);
+app.use('/api/business', businessRouter);
 
 db();
 
