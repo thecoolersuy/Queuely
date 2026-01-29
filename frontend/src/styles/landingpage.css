@@ -1,7 +1,7 @@
 /* Landing Page - Squire Inspired Design */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-* {
+.landing-page * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -104,22 +104,76 @@
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-size: 13px;
+  position: relative;
+  padding: 11px 26px;
+  border-radius: 999px;
+  font-size: 17px;
   font-weight: 600;
+  color: #fff;
   margin-bottom: 40px;
-  letter-spacing: 0.5px;
-  transition: all 0.3s;
+  letter-spacing:-0.1px;
+  background: #000;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  background: linear-gradient(135deg,
+      #3b82f6,
+      #9333ea,
+      #3b82f6,
+      #9333ea,
+      #3b82f6);
+  background-size: 300% 300%;
+  animation: move-gradient 5s ease-in-out infinite;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(0.5px);
+}
+
+.hero-badge::after {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  background: #000;
+  border-radius: 999px;
+  z-index: -1;
 }
 
 .hero-badge:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes move-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.badge-icon {
+  display: inline;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+.hero-badge:hover .badge-icon {
+  transform: translateX(4px);
 }
 
 .hero-title {
@@ -364,7 +418,7 @@
   gap: 40px;
 }
 
-.stat-card {
+.landing-page .stat-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -374,20 +428,20 @@
   transition: all 0.3s;
 }
 
-.stat-card:hover {
+.landing-page .stat-card:hover {
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-5px);
   border-color: rgba(74, 144, 226, 0.5);
 }
 
-.stat-icon {
+.landing-page .stat-icon {
   color: #4A90E2;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
 }
 
-.stat-number {
+.landing-page .stat-number {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 48px;
@@ -399,7 +453,7 @@
   background-clip: text;
 }
 
-.stat-label {
+.landing-page .stat-label {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;

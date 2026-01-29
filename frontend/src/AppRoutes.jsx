@@ -15,7 +15,21 @@ const BarberShopInfoPage = React.lazy(() => import("./pages/private/BarberShopIn
 
 
 const AppRoutes = () => {
-  const token = getValidToken(); // ← Use validated token
+  const [token, setToken] = React.useState(getValidToken());
+
+  React.useEffect(() => {
+    const handleTokenChange = () => {
+      setToken(getValidToken());
+    };
+
+    window.addEventListener("token-changed", handleTokenChange);
+    window.addEventListener("storage", handleTokenChange); // Sync multiple tabs
+
+    return () => {
+      window.removeEventListener("token-changed", handleTokenChange);
+      window.removeEventListener("storage", handleTokenChange);
+    };
+  }, []);
 
   return (
     <Suspense>

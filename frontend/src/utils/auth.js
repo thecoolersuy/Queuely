@@ -30,6 +30,8 @@ export const isValidToken = (token) => {
 export const getValidToken = () => {
   const token = localStorage.getItem('token');
 
+  if (!token) return null;
+
   if (!isValidToken(token)) {
     // Clear invalid token
     localStorage.removeItem('token');

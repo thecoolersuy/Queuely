@@ -165,8 +165,8 @@ const BusinessDashboard = () => {
 
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                Loading...
+            <div className="loading-container">
+                <p>Loading...</p>
             </div>
         );
     }
@@ -189,12 +189,12 @@ const BusinessDashboard = () => {
 
             {/* Sidebar */}
             <aside className={`dashboard-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
-                <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '45px' }} />
-                        <span style={{ fontSize: '28px', fontWeight: 'bold' }}>QUEUELY</span>
+                <div className="sidebar-logo">
+                    <div className="sidebar-logo-top">
+                        <img src={queuelyLogo} alt="Queuely Logo" />
+                        <span>QUEUELY</span>
                     </div>
-                    <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>BUSINESS DASHBOARD</p>
+                    <p>BUSINESS DASHBOARD</p>
                 </div>
 
                 <nav className="sidebar-nav">

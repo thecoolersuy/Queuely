@@ -37,7 +37,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="hero-section" data-testid="hero-section">
         <div className="hero-badge" data-testid="hero-badge">
-          Introducing QUEUELY <ArrowRight size={16} style={{ display: 'inline', marginLeft: '4px' }} />
+          Introducing Queuely <ArrowRight size={16} className="badge-icon" />
         </div>
 
         <h1 className="hero-title" data-testid="hero-title">

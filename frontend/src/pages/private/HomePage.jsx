@@ -67,7 +67,7 @@ const HomePage = () => {
   if (authLoading || loading) {
     return (
       <div className="homepage" data-testid="homepage-loading">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div className="loading-container">
           <p>Loading...</p>
         </div>
       </div>
@@ -78,9 +78,9 @@ const HomePage = () => {
     <div className="homepage" data-testid="homepage">
       <header className="header" data-testid="header">
         <div className="header-content">
-          <div className="logo" data-testid="logo" style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
-            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '66px',height: '66px' }} />
-            <h1 style={{ margin: 0, fontSize: '28px' }}>QUEUELY</h1>
+          <div className="logo" data-testid="logo">
+            <img src={queuelyLogo} alt="Queuely Logo" />
+            <h1>QUEUELY</h1>
           </div>
           <div className="search-container">
             <input
@@ -94,7 +94,7 @@ const HomePage = () => {
             <span className="search-icon"><Search size={18} /></span>
           </div>
 
-          <div className="location-display" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'white', fontWeight: '500' }}>
+          <div className="location-display">
             <span><MapPin size={18} /></span>
             <span>{userLocation}</span>
           </div>
@@ -147,9 +147,9 @@ const HomePage = () => {
       <footer className="footer" data-testid="footer">
         <div className="footer-content">
           <div className="footer-left">
-            <div className="footer-logo" data-testid="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '40px' }} />
-              <h3 style={{ margin: 0, fontSize: '40px' }}>QUEUELY</h3>
+            <div className="footer-logo" data-testid="footer-logo">
+              <img src={queuelyLogo} alt="Queuely Logo" />
+              <h3>QUEUELY</h3>
             </div>
             <p>The only all-in-one barbershop</p>
             <p>business management system.</p>
@@ -191,7 +191,7 @@ const HomePage = () => {
 // Shop Card Component
 const ShopCard = ({ shop }) => {
   const navigate = useNavigate();
-  
+
   const imageUrl = shop.profileImage
     ? `http://localhost:5000/${shop.profileImage}`
     : null;
@@ -201,12 +201,12 @@ const ShopCard = ({ shop }) => {
   };
 
   return (
-    <div className="shop-card" data-testid={`shop-card-${shop.business_id}`} onClick={handleClick} style={{ cursor: 'pointer' }}>
+    <div className="shop-card" data-testid={`shop-card-${shop.business_id}`} onClick={handleClick}>
       <div className="shop-image-container">
         {imageUrl ? (
           <img src={imageUrl} alt={shop.shopName} className="shop-image" data-testid={`shop-image-${shop.business_id}`} />
         ) : (
-          <div style={{ width: '100%', height: '100%', backgroundColor: '#f3f4f6' }} data-testid={`shop-image-placeholder-${shop.business_id}`}></div>
+          <div className="shop-image-placeholder" data-testid={`shop-image-placeholder-${shop.business_id}`}></div>
         )}
       </div>
       <div className="shop-info">

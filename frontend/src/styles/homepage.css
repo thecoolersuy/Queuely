@@ -5,6 +5,14 @@
   font-family: 'Inter', sans-serif;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
 html {
   scrollbar-gutter: stable;
 }
@@ -37,14 +45,28 @@ body {
 }
 
 .header .logo {
-  font-family: 'Inter', sans-serif;
-  color: #ffffff;
-  letter-spacing: -1px;
-  margin: 0;
-  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 1px;
   cursor: pointer;
   flex: 0 0 auto;
 }
+
+.header .logo img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.header .logo h1 {
+  margin: 0;
+  font-size: 28px;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  font-weight: 550;
+  letter-spacing: -1px;
+}
+
 
 /* Search Bar */
 .header .search-container {
@@ -73,6 +95,11 @@ body {
   transform: translateY(-1px);
 }
 
+.header .search-container {
+  display: flex;
+  align-items: center;
+}
+
 .header .search-input::placeholder {
   color: #999;
 }
@@ -95,13 +122,15 @@ body {
   flex: 0 0 auto;
 }
 
-/* Location Dropdown */
-.header .location-dropdown {
+/* Location Display */
+.header .location-display {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: #ffffff;
+  gap: 8px;
+  color: white;
+  font-weight: 500;
 }
+
 
 .header .location-dropdown span {
   font-size: 1.1rem;
@@ -137,6 +166,8 @@ body {
   transition: all 0.18s;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
+  width: auto;
+  min-width: fit-content;
 }
 
 .header .btn-outline:hover {
@@ -157,6 +188,8 @@ body {
   transition: all 0.18s;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
+  width: auto;
+  min-width: fit-content;
 }
 
 .header .btn-primary:hover {
@@ -292,6 +325,13 @@ body {
   overflow: hidden;
   background-color: #f0f0f0;
 }
+
+.shop-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #f3f4f6;
+}
+
 
 .shop-image {
   width: 100%;
@@ -451,12 +491,24 @@ body {
 }
 
 .footer-logo {
-  font-family: 'Inter', sans-serif;
-  font-size: 2.5rem;
-  letter-spacing: -0.5px;
-  margin-bottom: 22px;
-  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
 }
+
+.footer-logo img {
+  height: 40px;
+}
+
+.footer-logo h3 {
+  margin: 0;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
 
 .footer-left p {
   color: #999;

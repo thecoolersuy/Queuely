@@ -1,4 +1,4 @@
-* {
+.business-auth-container * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,11 +9,11 @@
     display: flex;
     background-color: #000000;
     color: #ffffff;
-   
+
 }
 
 /* Left Section */
-.business-auth-left {
+.business-auth-container .business-auth-left {
     flex: 1;
     padding: 60px 80px;
     display: flex;
@@ -54,7 +54,7 @@
 }
 
 /* Right Section */
-.business-auth-right {
+.business-auth-container .business-auth-right {
     flex: 1;
     padding: 60px 80px;
     display: flex;
@@ -69,7 +69,10 @@
     margin-bottom: 60px;
 }
 
-.business-logo {
+.business-auth-container .business-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 650;
     letter-spacing: -1px;
@@ -77,12 +80,22 @@
     cursor: pointer;
 }
 
+.business-auth-container .business-logo img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.business-auth-container .business-logo span {
+    font-size: 30px;
+}
+
 .business-header-buttons {
     display: flex;
     gap: 12px;
 }
 
-.btn-business-account {
+.business-auth-container .btn-business-account {
     padding: 10px 24px;
     background-color: transparent;
     color: #ffffff;
@@ -95,12 +108,12 @@
     font-family: 'Inter', sans-serif;
 }
 
-.btn-business-account:hover {
+.business-auth-container .btn-business-account:hover {
     background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-.btn-get-started {
+.business-auth-container .btn-get-started {
     padding: 10px 24px;
     background-color: #3b82f6;
     color: #ffffff;
@@ -113,7 +126,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-.btn-get-started:hover {
+.business-auth-container .btn-get-started:hover {
     background-color: #2563eb;
     transform: translateY(-1px);
 }
@@ -307,7 +320,7 @@
 }
 
 /* Submit Button */
-.btn-business-submit {
+.business-auth-container .btn-business-submit {
     width: 100%;
     padding: 16px;
     background-color: #3b82f6;
@@ -323,13 +336,13 @@
     letter-spacing: 0.5px;
 }
 
-.btn-business-submit:hover {
+.business-auth-container .btn-business-submit:hover {
     background-color: #2563eb;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.btn-business-submit:disabled {
+.business-auth-container .btn-business-submit:disabled {
     background-color: #1e3a8a;
     cursor: not-allowed;
     transform: none;

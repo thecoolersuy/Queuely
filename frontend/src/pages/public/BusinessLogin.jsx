@@ -58,9 +58,9 @@ const BusinessLogin = () => {
       {/* Right Section */}
       <div className="business-auth-right">
         <div className="business-auth-header">
-          <div className="business-logo" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '65px', height: '65px' }} />
-            <span style={{ fontSize: '30px' }}>QUEUELY</span>
+          <div className="business-logo">
+            <img src={queuelyLogo} alt="Queuely Logo" />
+            <span>QUEUELY</span>
           </div>
           <div className="business-header-buttons">
             <button
