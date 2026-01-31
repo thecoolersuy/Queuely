@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Star, MapPin, Phone } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Phone, Calendar } from 'lucide-react';
 import { apiCall } from '../../utils/api';
 import '../../styles/barbershopinfo.css';
 import queuelyLogo from '../../assets/queuelylogo.png';
@@ -139,7 +139,7 @@ const BarberShopInfoPage = () => {
           </div>
           <div className="info-header-right">
             <button onClick={handleLogout} className="btn-outline-info">
-              Logout
+              Log Out
             </button>
             <button onClick={handleRegisterBusiness} className="btn-primary-info">
               Register Your Business
@@ -256,7 +256,10 @@ const BarberShopInfoPage = () => {
                 </button>
               </div>
 
-              <button className="book-now-button" onClick={() => navigate(`/book/${id}`)}>Book Now</button>
+              <button className="book-now-button" onClick={() => navigate(`/book/${id}`)}>
+                <Calendar size={20} />
+                Book Now
+              </button>
             </div>
           </div>
         </div>

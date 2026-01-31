@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Star } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
 import { apiCall } from '../../utils/api';
+import NotificationPanel from '../../components/NotificationPanel';
 import '../../styles/homepage.css';
 import queuelyLogo from '../../assets/queuelylogo.png';
 
@@ -99,12 +100,14 @@ const HomePage = () => {
             <span>{userLocation}</span>
           </div>
 
+          <NotificationPanel />
+
           <button onClick={handleLogout} className="btn-outline" data-testid="logout-btn">
             Log Out
           </button>
 
           <button onClick={handleRegisterBusiness} className="btn-primary" data-testid="register-business-btn">
-            Register your Business
+            Register Your Business
           </button>
         </div>
       </header>

@@ -79,7 +79,7 @@ export const login = async (req, res) => {
         message: "Password not correct"
       })
     }
-    const token = generateToken(user.userId, user.email, 'customer');
+    const token = generateToken(user.user_id, user.email, 'customer');
 
     res.status(200).json({
       success: true,

@@ -2,6 +2,7 @@ import Booking from '../models/Booking.js';
 import Service from '../models/Service.js';
 import Barber from '../models/Barber.js';
 import Business from '../models/Business.js';
+import Notification from '../models/Notification.js';
 import { Op } from 'sequelize';
 
 // Get Dashboard Stats
@@ -134,6 +135,20 @@ export const updateBookingStatus = async (req, res) => {
         booking.status = status;
         await booking.save();
 
+        // Create notification for the user
+        const notificationTitle = status === 'ACCEPTED' ? 'Booking Accepted' : 'Booking Declined';
+        const notificationMessage = status === 'ACCEPTED'
+            ? `Good news! Your booking for ${booking.service} has been accepted.`
+            : `Sorry, your booking for ${booking.service} has been declined.`;
+        const notificationType = status === 'ACCEPTED' ? 'BOOKING_ACCEPTED' : 'BOOKING_DECLINED';
+
+        await Notification.create({
+            user_id: booking.user_id,
+            title: notificationTitle,
+            message: notificationMessage,
+            type: notificationType
+        });
+
         res.status(200).json({
             success: true,
             message: `Booking ${status.toLowerCase()} successfully`,
@@ -201,8 +216,6 @@ export const updateBusinessProfile = async (req, res) => {
 
         if (profileImage) {
             // Store relative path for frontend access
-            // req.file.path is like "uploads\image\123.png" (windows)
-            // we want "uploads/image/123.png"
             business.profileImage = profileImage.replace(/\\/g, '/');
         }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Calendar, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { toast } from 'sonner';
 import { apiCall } from '../../utils/api';
 import queuelyLogo from '../../assets/queuelylogo.png';
 import '../../styles/booking.css';
@@ -16,6 +17,7 @@ const BookingPage = () => {
     const [selectedBarber, setSelectedBarber] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Mock time slots for now (would ideally fetch based on barber/date)
     const timeSlots = [
@@ -85,6 +87,44 @@ const BookingPage = () => {
         };
     };
 
+    const handleContinue = async () => {
+        if (selectedServices.length === 0 || !selectedTime) return;
+
+        setIsSubmitting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const bookingData = {
+                business_id: id,
+                service: selectedServices.map(s => s.name).join(', '),
+                barber: selectedBarber ? selectedBarber.name : 'Any Professional',
+                date: selectedDate.toISOString().split('T')[0],
+                time: selectedTime,
+                amount: calculateTotal()
+            };
+
+            const response = await apiCall('POST', '/bookings/create', {
+                data: bookingData,
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (response.data.success) {
+                toast.success('Appointment request sent successfully!', {
+                    description: `Your ${selectedServices[0].name} is booked for ${selectedTime}`,
+                });
+
+                // Short delay to let the user see the success message
+                setTimeout(() => {
+                    navigate('/homepage');
+                }, 2000);
+            }
+        } catch (error) {
+            console.error('Booking error:', error);
+            toast.error('Failed to send booking request. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     if (loading) return <div className="booking-loading">Loading...</div>;
     if (!businessData) return <div className="booking-error">Barbershop not found</div>;
 
@@ -100,8 +140,8 @@ const BookingPage = () => {
                         <h1>QUEUELY</h1>
                     </div>
                     <div className="header-actions">
-                        <button onClick={handleLogout} className="logout-btn">Logout</button>
-                        <button onClick={() => navigate('/business-register')} className="register-btn">Register your business</button>
+                        <button onClick={handleLogout} className="logout-btn">Log Out</button>
+                        <button onClick={() => navigate('/business-register')} className="register-btn">Register Your Business</button>
                     </div>
                 </div>
             </header>
@@ -252,8 +292,12 @@ const BookingPage = () => {
                                 <span>Subtotal</span>
                                 <span className="total-price">${calculateTotal()}</span>
                             </div>
-                            <button className="continue-btn" disabled={selectedServices.length === 0 || !selectedTime}>
-                                Continue
+                            <button
+                                className="continue-btn"
+                                disabled={selectedServices.length === 0 || !selectedTime || isSubmitting}
+                                onClick={handleContinue}
+                            >
+                                {isSubmitting ? 'Sending...' : 'Continue'}
                             </button>
                         </div>
                     </div>

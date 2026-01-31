@@ -14,11 +14,11 @@ export const sequelize = new Sequelize(
   }
 );
 
-export const db = () => {
+export const db = async () => {
   try {
-    sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: true });
     console.log("Database connected successfully");
   } catch (e) {
-    console.log("Database connection failed");
+    console.log("Database connection failed", e);
   }
 };
