@@ -118,7 +118,7 @@ const BarberShopInfoPage = () => {
     : null;
   const fullLocation = getLocationFromCountry(business.country);
   const coordinates = getCountryCoordinates(business.country);
-  
+
   // Generate Google Maps embed URL
   const mapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(fullLocation)}&zoom=${coordinates.zoom}`;
 
@@ -129,7 +129,7 @@ const BarberShopInfoPage = () => {
       <header className="info-header">
         <div className="info-header-content">
           <div className="info-header-left">
-            <button className="back-button" onClick={handleBack}>
+            <button className="info-back-button" onClick={handleBack}>
               <ArrowLeft size={24} />
             </button>
             <div className="info-logo">
@@ -241,7 +241,7 @@ const BarberShopInfoPage = () => {
                   title="Business Location Map"
                 ></iframe>
               </div>
-              
+
               <p className="sidebar-address">
                 <span style={{ display: 'inline', marginRight: '4px' }}>{fullLocation}</span>
                 {business.country}
@@ -256,7 +256,7 @@ const BarberShopInfoPage = () => {
                 </button>
               </div>
 
-              <button className="book-now-button">Book Now</button>
+              <button className="book-now-button" onClick={() => navigate(`/book/${id}`)}>Book Now</button>
             </div>
           </div>
         </div>

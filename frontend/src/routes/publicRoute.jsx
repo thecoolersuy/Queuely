@@ -4,10 +4,12 @@ import { getValidToken } from "../utils/auth";
 
 const PublicRoutes = () => {
   const [token, setToken] = useState(getValidToken());
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
 
   useEffect(() => {
     const handleTokenChange = () => {
       setToken(getValidToken());
+      setUser(JSON.parse(localStorage.getItem('user') || '{}'));
     };
 
     window.addEventListener("token-changed", handleTokenChange);
@@ -20,7 +22,8 @@ const PublicRoutes = () => {
   }, []);
 
   if (token) {
-    return <Navigate to="/homepage" replace />;
+    const redirectPath = user.role === 'business' ? "/business-dashboard" : "/homepage";
+    return <Navigate to={redirectPath} replace />;
   }
 
   return <Outlet />;

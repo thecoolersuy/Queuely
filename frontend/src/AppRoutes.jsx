@@ -12,14 +12,17 @@ const BusinessRegister = React.lazy(() => import("./pages/public/BusinessRegiste
 const BusinessLogin = React.lazy(() => import("./pages/public/BusinessLogin"));
 const BusinessDashboard = React.lazy(() => import("./pages/private/BusinessDashboard"));
 const BarberShopInfoPage = React.lazy(() => import("./pages/private/BarberShopInfoPage"));
+const BookingPage = React.lazy(() => import("./pages/private/BookingPage"));
 
 
 const AppRoutes = () => {
   const [token, setToken] = React.useState(getValidToken());
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user') || '{}'));
 
   React.useEffect(() => {
     const handleTokenChange = () => {
       setToken(getValidToken());
+      setUser(JSON.parse(localStorage.getItem('user') || '{}'));
     };
 
     window.addEventListener("token-changed", handleTokenChange);
@@ -37,7 +40,11 @@ const AppRoutes = () => {
         {/* Root */}
         <Route
           path="/"
-          element={token ? <Navigate to="/homepage" replace /> : <LandingPage />}
+          element={
+            token
+              ? <Navigate to={user?.role === 'business' ? "/business-dashboard" : "/homepage"} replace />
+              : <LandingPage />
+          }
         />
 
         {/* Public routes */}
@@ -48,11 +55,16 @@ const AppRoutes = () => {
           <Route path="/business-login" element={<BusinessLogin />} />
         </Route>
 
-        {/* Private routes */}
-        <Route element={<PrivateRoutes />}>
+        {/* Customer Private routes */}
+        <Route element={<PrivateRoutes allowedRole="customer" />}>
           <Route path="/homepage" element={<Homepage />} />
-          <Route path="/business-dashboard" element={<BusinessDashboard />} />
           <Route path="/barbershop/:id" element={<BarberShopInfoPage />} />
+          <Route path="/book/:id" element={<BookingPage />} />
+        </Route>
+
+        {/* Business Private routes */}
+        <Route element={<PrivateRoutes allowedRole="business" />}>
+          <Route path="/business-dashboard" element={<BusinessDashboard />} />
         </Route>
 
         {/* Fallback */}
