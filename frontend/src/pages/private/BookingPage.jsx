@@ -60,6 +60,12 @@ const BookingPage = () => {
         navigate('/login');
     };
 
+    const handleRegisterBusiness = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/business-register';
+    };
+
     const calculateTotal = () => {
         return selectedServices.reduce((acc, curr) => acc + parseFloat(curr.price), 0).toFixed(2);
     };
@@ -141,7 +147,7 @@ const BookingPage = () => {
                     </div>
                     <div className="header-actions">
                         <button onClick={handleLogout} className="logout-btn">Log Out</button>
-                        <button onClick={() => navigate('/business-register')} className="register-btn">Register Your Business</button>
+                        <button onClick={handleRegisterBusiness} className="register-btn">Register Your Business</button>
                     </div>
                 </div>
             </header>

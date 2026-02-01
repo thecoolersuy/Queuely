@@ -61,7 +61,12 @@ const HomePage = () => {
   };
 
   const handleRegisterBusiness = () => {
-    navigate('/business-register');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // Using window.location.href for a full reload to the business register page.
+    // This prevents the current PrivateRoute from redirecting to /login before
+    // the new route is fully handled by the router.
+    window.location.href = '/business-register';
   };
 
   // Show loading state while checking authentication

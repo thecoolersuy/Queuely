@@ -85,7 +85,9 @@ const BarberShopInfoPage = () => {
   };
 
   const handleRegisterBusiness = () => {
-    navigate('/business-register');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/business-register';
   };
 
   const handleBack = () => {
