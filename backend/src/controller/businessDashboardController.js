@@ -48,7 +48,6 @@ export const getDashboardStats = async (req, res) => {
                 totalBookings,
                 totalServices,
                 totalBarbers,
-                totalNetSales: parseFloat(totalNetSales).toFixed(2),
             }
         });
     } catch (error) {

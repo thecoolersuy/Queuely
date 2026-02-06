@@ -1,13 +1,22 @@
 // frontend/src/components/AddServiceBarberModal.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { apiCall } from '../utils/api';
 
-const AddServiceBarberModal = ({ isOpen, onClose, onSuccess }) => {
-  const [activeTab, setActiveTab] = useState('service'); // 'service' or 'barber'
+const AddServiceBarberModal = ({ isOpen, onClose, onSuccess, initialTab = 'service' }) => {
+  const [activeTab, setActiveTab] = useState(initialTab); // 'service' or 'barber'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Sync activeTab when modal opens or initialTab shifts
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialTab);
+      setError('');
+      setSuccess('');
+    }
+  }, [isOpen, initialTab]);
 
   // Service form state
   const [serviceForm, setServiceForm] = useState({

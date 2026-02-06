@@ -20,7 +20,7 @@ export const createBooking = async (req, res) => {
         const newBooking = await Booking.create({
             business_id,
             user_id,
-            customer_name: `${user.firstName} ${user.lastName}`,
+            customer_name: user.name,
             customer_email: user.email,
             service,
             barber,

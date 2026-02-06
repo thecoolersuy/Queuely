@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { apiCall } from '../../utils/api';
 import AddServiceBarberModal from '../../components/AddServiceBarberModal';
+import EditServiceModal from '../../components/EditServiceModal';
 import BusinessProfile from '../../components/BusinessProfile';
 import '../../styles/businessDashboard.css';
 import queuelyLogo from '../../assets/queuelylogo.png';
@@ -26,11 +27,13 @@ const BusinessDashboard = () => {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [selectedService, setSelectedService] = useState(null);
+    const [modalTab, setModalTab] = useState('service');
     const [stats, setStats] = useState({
         serviceRevenue: '0.00',
         totalBookings: 0,
         totalServices: 0,
-        totalNetSales: '0.00',
         totalBarbers: 0
     });
     const [bookings, setBookings] = useState([]);
@@ -125,6 +128,16 @@ const BusinessDashboard = () => {
         }
     };
 
+    const handleEditService = (service) => {
+        setSelectedService(service);
+        setEditModalOpen(true);
+    };
+
+    const handleOpenAddModal = (tab) => {
+        setModalTab(tab);
+        setModalOpen(true);
+    };
+
     const handleBookingAction = async (bookingId, status) => {
         try {
             const token = localStorage.getItem('token');
@@ -156,10 +169,23 @@ const BusinessDashboard = () => {
         }) + `, ${timeString}`;
     };
 
-    if (loading) {
+    // If it's the very first load (overview), we can show the full page loader
+    // But subsequently, we want to keep the layout visible
+    const [initialLoading, setInitialLoading] = useState(true);
+
+    useEffect(() => {
+        const init = async () => {
+            await fetchDashboardData();
+            setInitialLoading(false);
+        };
+        init();
+    }, []);
+
+    if (initialLoading) {
         return (
-            <div className="loading-container">
-                <p>Loading...</p>
+            <div className="dashboard-initial-loader">
+                <div className="loader-orbit"></div>
+                <img src={queuelyLogo} alt="Loading..." className="loader-logo-pulse" />
             </div>
         );
     }
@@ -231,6 +257,11 @@ const BusinessDashboard = () => {
 
             {/* Main Content */}
             <main className="dashboard-main">
+                {loading && (
+                    <div className="view-loader-overlay">
+                        <div className="view-loader-spinner"></div>
+                    </div>
+                )}
                 {activeView === 'overview' && (
                     <>
                         <div className="dashboard-header">
@@ -277,11 +308,11 @@ const BusinessDashboard = () => {
 
                             <div className="stat-card">
                                 <div className="stat-icon orange">
-                                    <TrendingUp size={22} />
+                                    <Users size={22} />
                                 </div>
                                 <div className="stat-info">
-                                    <p className="stat-label">Total Net Sales</p>
-                                    <h2 className="stat-value">${stats.totalNetSales}</h2>
+                                    <p className="stat-label">Barbers</p>
+                                    <h2 className="stat-value">{stats.totalBarbers}</h2>
                                 </div>
                             </div>
                         </div>
@@ -429,7 +460,7 @@ const BusinessDashboard = () => {
                     <div className="services-view">
                         <div className="view-header">
                             <h2>Services</h2>
-                            <button className="btn-add-premium" onClick={() => setModalOpen(true)}>
+                            <button className="btn-add-premium" onClick={() => handleOpenAddModal('service')}>
                                 <Plus size={18} /> Add Service
                             </button>
                         </div>
@@ -443,7 +474,12 @@ const BusinessDashboard = () => {
                                     <p className="duration-text">{service.duration} mins</p>
                                     <p className="description-text">{service.description || 'Professional grooming service tailored to your style.'}</p>
                                     <div className="card-footer">
-                                        <button className="btn-edit-sm">Edit</button>
+                                        <button
+                                            className="btn-edit-sm"
+                                            onClick={() => handleEditService(service)}
+                                        >
+                                            Edit
+                                        </button>
                                     </div>
                                 </div>
                             ))}
@@ -455,7 +491,7 @@ const BusinessDashboard = () => {
                     <div className="barbers-view">
                         <div className="view-header">
                             <h2>Barbers</h2>
-                            <button className="btn-add-premium" onClick={() => setModalOpen(true)}>
+                            <button className="btn-add-premium" onClick={() => handleOpenAddModal('barber')}>
                                 <Plus size={18} /> Add Barber
                             </button>
                         </div>
@@ -481,6 +517,20 @@ const BusinessDashboard = () => {
                     <BusinessProfile onProfileUpdate={refreshUser} />
                 )}
 
+                {/* Edit Service Modal */}
+                <EditServiceModal
+                    isOpen={editModalOpen}
+                    onClose={() => {
+                        setEditModalOpen(false);
+                        setSelectedService(null);
+                    }}
+                    onSuccess={() => {
+                        fetchServices();
+                        if (activeView === 'overview') fetchDashboardData();
+                    }}
+                    service={selectedService}
+                />
+
                 {/* Add Service/Barber Modal */}
                 <AddServiceBarberModal
                     isOpen={modalOpen}
@@ -490,6 +540,7 @@ const BusinessDashboard = () => {
                         if (activeView === 'services') fetchServices();
                         if (activeView === 'barbers') fetchBarbers();
                     }}
+                    initialTab={modalTab}
                 />
             </main >
             <div className={`floating-help ${isDarkMode ? 'dark' : ''}`}>

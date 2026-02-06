@@ -905,3 +905,337 @@
     margin-top: 40px;
   }
 }
+
+/* Premium Styles for Edit Modal and Buttons */
+.premium-modal {
+  max-width: 600px !important;
+  border-radius: 24px !important;
+}
+
+.header-title-group h2 {
+  font-size: 24px !important;
+  margin-bottom: 4px !important;
+}
+
+.header-title-group .subtitle {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.premium-form {
+  margin-top: 8px;
+}
+
+.form-group-premium {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-premium label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.form-group-premium input,
+.form-group-premium textarea {
+  padding: 12px 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  background: #fdfdfd;
+}
+
+.form-group-premium input:focus,
+.form-group-premium textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-row-premium {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-weight: 600;
+}
+
+.input-with-icon input {
+  padding-left: 32px !important;
+}
+
+.modal-footer-premium {
+  padding: 24px 32px;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fcfcfc;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary-premium {
+  background: #000;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary-premium:hover {
+  background: #222;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger-outline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #ef4444;
+  border: 1.5px solid rgba(239, 68, 68, 0.1);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-danger-outline:hover {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-color: #ef4444;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  color: #666;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.btn-ghost:hover {
+  background: #f3f4f6;
+  color: #1a1a1a;
+}
+
+.error-banner {
+  background: #fef2f2;
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+/* Service Card Enhancements */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.btn-edit-sm {
+  background: #f3f4f6;
+  color: #1a1a1a;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit-sm:hover {
+  background: #e5e7eb;
+}
+
+.dark-mode .btn-edit-sm {
+  background: #2a2a2a;
+  color: white;
+}
+
+.dark-mode .btn-edit-sm:hover {
+  background: #333;
+}
+
+/* Premium Close Button */
+.modal-close-btn {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4b5563;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.modal-close-btn:hover {
+  background-color: #ffffff;
+  color: #000;
+  border-color: #eee;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode .modal-close-btn {
+  background: #2a2a2a;
+  color: #aaa;
+}
+
+.dark-mode .modal-close-btn:hover {
+  background: #333;
+  color: #fff;
+  border-color: #444;
+}
+
+/* Premium Dashboard Loader */
+.dashboard-initial-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  z-index: 9999;
+}
+
+.loader-logo-pulse {
+  width: 64px;
+  height: 64px;
+  animation: logoPulse 2s infinite ease-in-out;
+  position: relative;
+  z-index: 2;
+}
+
+.loader-orbit {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: orbitRotate 1s infinite linear;
+}
+
+@keyframes logoPulse {
+
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Internal View Loader */
+.view-loader-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 249, 2fa, 0.7);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  border-radius: inherit;
+  animation: fadeIn 0.3s ease;
+}
+
+.dark-mode .view-loader-overlay {
+  background-color: rgba(18, 18, 18, 0.7);
+}
+
+.view-loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: orbitRotate 0.8s infinite linear;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth Transitions for Content Area */
+.dashboard-main {
+  position: relative;
+  /* Essential for overlay positioning */
+  transition: all 0.3s ease;
+}
+
+.dashboard-main>div {
+  animation: sliceIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes sliceIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
