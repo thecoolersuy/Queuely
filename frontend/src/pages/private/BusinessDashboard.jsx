@@ -21,7 +21,6 @@ import AddServiceBarberModal from '../../components/AddServiceBarberModal';
 import EditServiceModal from '../../components/EditServiceModal';
 import BusinessProfile from '../../components/BusinessProfile';
 import '../../styles/businessDashboard.css';
-import queuelyLogo from '../../assets/queuelylogo.png';
 
 const BusinessDashboard = () => {
     const navigate = useNavigate();
@@ -185,7 +184,6 @@ const BusinessDashboard = () => {
         return (
             <div className="dashboard-initial-loader">
                 <div className="loader-orbit"></div>
-                <img src={queuelyLogo} alt="Loading..." className="loader-logo-pulse" />
             </div>
         );
     }
@@ -209,9 +207,8 @@ const BusinessDashboard = () => {
             {/* Sidebar */}
             <aside className={`dashboard-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
                 <div className="sidebar-logo">
-                    <img src={queuelyLogo} alt="Queuely Logo" />
                     <div className="logo-text">
-                        <h1>QUEUELY</h1>
+                        <h1 style={{ letterSpacing: '-0.8px' }}>Queuely</h1>
                         <p>BUSINESS MANAGER</p>
                     </div>
                 </div>

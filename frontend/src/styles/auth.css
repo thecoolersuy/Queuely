@@ -19,14 +19,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 0;
   margin-bottom: 40px;
-}
-
-.auth-container .logo img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
 }
 
 .auth-container .logo h1 {

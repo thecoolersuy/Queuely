@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Calendar, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { apiCall } from '../../utils/api';
-import queuelyLogo from '../../assets/queuelylogo.png';
 import '../../styles/booking.css';
 
 const BookingPage = () => {
@@ -142,8 +141,7 @@ const BookingPage = () => {
             <header className="booking-header">
                 <div className="header-content">
                     <div className="logo" onClick={() => navigate('/homepage')}>
-                        <img src={queuelyLogo} alt="Queuely Logo" />
-                        <h1>QUEUELY</h1>
+                        <h1 style={{ letterSpacing: '-0.8px' }}>Queuely</h1>
                     </div>
                     <div className="header-actions">
                         <button onClick={handleLogout} className="logout-btn">Log Out</button>

@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Star, MapPin, Phone, Calendar } from 'lucide-react';
 import { apiCall } from '../../utils/api';
 import '../../styles/barbershopinfo.css';
-import queuelyLogo from '../../assets/queuelylogo.png';
 
 const BarberShopInfoPage = () => {
   const navigate = useNavigate();
@@ -135,8 +134,7 @@ const BarberShopInfoPage = () => {
               <ArrowLeft size={24} />
             </button>
             <div className="info-logo">
-              <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '50px', height: '50px' }} />
-              <h1>QUEUELY</h1>
+              <h1 style={{ letterSpacing: '-0.8px' }}>Queuely</h1>
             </div>
           </div>
           <div className="info-header-right">

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Calendar, Users, TrendingUp, Clock, Shield, Star, Zap, Scissors } from 'lucide-react';
+import { ArrowRight, Calendar, Users, TrendingUp, Clock, Shield, Star, Zap, Scissors, Megaphone, BarChart3, Eye, Heart } from 'lucide-react';
 import { useEffect } from 'react';
 import '../../styles/landingpage.css';
 
@@ -10,7 +10,6 @@ import analyticsMockup from '../../assets/queuely1.png';
 import barberCustomerPhoto from '../../assets/barber_customer_photo.png';
 import bookingInterfacePhoto from '../../assets/booking_interface_photo.png';
 import happyBarberPhoto from '../../assets/happy_barber_photo.png';
-import queuelyLogo from '../../assets/queuelylogo.png';
 import premiumDashboardMockup from '../../assets/premium_dashboard_mockup.png';
 
 const CombIcon = ({ size = 24, className }) => (
@@ -54,43 +53,20 @@ const LandingPage = () => {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
-    // Scroll parallax for scattered background
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const images = document.querySelectorAll('.scatter-img');
-      images.forEach((img, index) => {
-        const speed = 0.4 + (index * 0.1); // Increased speed for faster "elevator" effect
-        img.style.transform = `translateY(${-(scrolled * speed)}px)`;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
     return () => {
       observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <div className="landing-page" data-testid="landing-page">
-      {/* Floating Background Icons */}
-      <div className="floating-container">
-        <div className="floating-item float-1"><Scissors size={120} strokeWidth={0.5} /></div>
-        <div className="floating-item float-2"><CombIcon size={100} /></div>
-        <div className="floating-item float-3"><Scissors size={80} strokeWidth={0.5} /></div>
-        <div className="floating-item float-4"><CombIcon size={140} /></div>
-      </div>
-
       {/* Header */}
       <header className="landing-header" data-testid="landing-header">
         <div className="landing-header-content">
-          <div className="landing-logo" data-testid="landing-logo">
-            <img src={queuelyLogo} alt="Queuely Logo" style={{ width: '64px', height: '64px', marginRight: '-10px' }} />
-            <h1 style={{ margin: 0, fontSize: '25px' }}>QUEUELY</h1>
-          </div>
+          <h1 style={{ margin: 0, fontSize: '28px', letterSpacing: '-0.8px' }}>Queuely</h1>
           <nav className="landing-nav">
             <a href="#features" className="nav-link">Features</a>
-            <a href="#pricing" className="nav-link">Pricing</a>
+            <a href="#blogs" className="nav-link">Blogs</a>
             <a onClick={() => navigate('/business-register')} className="nav-link" data-testid="find-barber-link">Business</a>
             <button onClick={() => navigate('/login')} className="btn-outline-white" data-testid="login-btn">
               Login
@@ -144,77 +120,65 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Scattered Background Images with Elevator Parallax */}
+      {/* Bento Grid Features */}
       <section className="bento-section reveal" id="features">
-        <div className="scattered-bg-container">
-          <img src={bookingMockup} className="scatter-img img-1" alt="Decorative 1" />
-          <img src={premiumDashboardMockup} className="scatter-img img-2" alt="Decorative 2" />
-          <img src={barberCustomerPhoto} className="scatter-img img-3" alt="Decorative 3" />
-          <img src={happyBarberPhoto} className="scatter-img img-4" alt="Decorative 4" />
-          <img src={analyticsMockup} className="scatter-img img-5" alt="Decorative 5" />
-          <img src={bookingInterfacePhoto} className="scatter-img img-6" alt="Decorative 6" />
-        </div>
-
         <div className="bento-grid">
-          {/* Main Block - Fill Your Chair */}
-          <div className="bento-item bento-main">
-            <div className="bento-content">
-              <h2 className="bento-title">FILL YOUR CHAIR</h2>
-              <p className="bento-subtitle">Connect with customers through Google and Instagram.</p>
-              <button className="btn-bento">Get Found</button>
-            </div>
-          </div>
-
-          {/* Secondary Block - Loyalty */}
-          <div className="bento-item bento-secondary">
-            <div className="bento-content">
-              <h2 className="bento-title">LOCK IN LOYALTY</h2>
-              <p className="bento-subtitle">Launch your site to attract new fans and automated bookings.</p>
-            </div>
-          </div>
-
-          {/* Small Block - Security */}
-          <div className="bento-item bento-small glass-card">
+          {/* Feature 1 - Brand Development */}
+          <div className="bento-item">
             <div className="bento-icon-box">
-              <Shield size={24} color="#4A90E2" />
+              <Megaphone size={32} />
             </div>
-            <h3>Secured Payments</h3>
-            <p>Industry standard protection for your earnings.</p>
+            <h3>Brand Development</h3>
+            <p>Our awesome team effortlessly blends research-driven ideas for a super effective and all-around approach. Navigating the never-ending adventure of branding becomes a breeze with our seasoned consultants leading the way.</p>
           </div>
 
-          {/* Small Block - Speed */}
-          <div className="bento-item bento-small glass-card">
+          {/* Feature 2 - Data Driven Marketing */}
+          <div className="bento-item">
             <div className="bento-icon-box">
-              <Zap size={24} color="#FFD700" />
+              <BarChart3 size={32} />
             </div>
-            <h3>Lightning Fast</h3>
-            <p>Optimized interface for quick barbershop management.</p>
+            <h3>Data Driven Marketing</h3>
+            <p>Going data-driven is like having a secret weapon for success. It's the key to connecting with our community and building a strong brand. We dive deep into research before unleashing our creative ideas, giving us the edge.</p>
+          </div>
+
+          {/* Feature 3 - Impactful Visuals */}
+          <div className="bento-item">
+            <div className="bento-icon-box">
+              <Eye size={32} />
+            </div>
+            <h3>Impactful Visuals</h3>
+            <p>Picture this: when it comes to storytelling and branding, visuals are the real game-changers. Our crew of creative wizards knows how to turn ideas into reality, spinning stories that just click with our viewers.</p>
+          </div>
+
+          {/* Feature 4 - Exhilarating Events */}
+          <div className="bento-item">
+            <div className="bento-icon-box">
+              <Star size={32} />
+            </div>
+            <h3>Exhilarating Events</h3>
+            <p>Time to make memories, forge new friendships, and strengthen bonds with your community, colleagues, and audience. Our squad of awesome and creative pros ensures that every event is not just good but downright epic.</p>
           </div>
         </div>
       </section>
 
-      {/* Stats Section as Blocks */}
-      <section className="stats-section reveal" data-testid="stats-section">
-        <div className="stats-grid">
-          <div className="stat-block">
-            <div className="stat-icon-wrapper"><Calendar size={32} /></div>
-            <h3 className="stat-number">10K+</h3>
-            <p className="stat-label">Appointments</p>
+      {/* Trust Section */}
+      <section className="trust-section reveal" id="blogs" data-testid="trust-section">
+        <div className="trust-container">
+          <div className="trust-description">
+            <p>With an extensive journey in the grooming industry, we've collaborated with hundreds of barbershops, fostering genuine connections within communities through authentic tools and pioneering management strategies.</p>
+            <p>Our experiences have not only crafted meaningful relationships but also ushered in significant transformations, leading to purposeful and impactful growth for every partner. Join us in the journey of building a brand that stands out.</p>
           </div>
-          <div className="stat-block">
-            <div className="stat-icon-wrapper"><Users size={32} /></div>
-            <h3 className="stat-number">500+</h3>
-            <p className="stat-label">Active Barbers</p>
-          </div>
-          <div className="stat-block">
-            <div className="stat-icon-wrapper"><Star size={32} /></div>
-            <h3 className="stat-number">4.9/5</h3>
-            <p className="stat-label">User Rating</p>
-          </div>
-          <div className="stat-block">
-            <div className="stat-icon-wrapper"><Clock size={32} /></div>
-            <h3 className="stat-number">24/7</h3>
-            <p className="stat-label">Support</p>
+          <div className="trust-typography">
+            <div className="typography-wrapper">
+              <h2 className="handwritten-text">
+                WE'RE <br />
+                LOVED <br />
+                BY <span className="text-accent">MANY</span>
+              </h2>
+              <div className="heart-icon-wrapper">
+                <Heart size={80} fill="#3b82f6" stroke="none" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -239,8 +203,7 @@ const LandingPage = () => {
         <div className="footer-content">
           <div className="footer-section">
             <div className="footer-logo" data-testid="footer-logo">
-              <img src={queuelyLogo} alt="Queuely Logo" style={{ height: '60px', marginRight: '1px' }} />
-              <h3 style={{ margin: 0, fontSize: '32px' }}>QUEUELY</h3>
+              <h3 style={{ margin: 0, fontSize: '32px', letterSpacing: '-0.8px' }}>Queuely</h3>
             </div>
             <p>The essential barbershop management system</p>
           </div>
@@ -249,7 +212,7 @@ const LandingPage = () => {
             <div className="footer-links-col">
               <h4>Product</h4>
               <a href="#features">Features</a>
-              <a href="#pricing">Pricing</a>
+              <a href="#blogs">Blogs</a>
             </div>
             <div className="footer-links-col">
               <h4>Company</h4>

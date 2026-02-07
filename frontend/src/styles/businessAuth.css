@@ -72,18 +72,12 @@
 .business-auth-container .business-logo {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 650;
     letter-spacing: -1px;
     color: #ffffff;
     cursor: pointer;
-}
-
-.business-auth-container .business-logo img {
-    width: 65px;
-    height: 65px;
-    object-fit: contain;
 }
 
 .business-auth-container .business-logo span {

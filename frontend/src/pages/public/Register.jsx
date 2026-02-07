@@ -7,7 +7,6 @@ import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
 import '../../styles/auth.css';
-import queuelyLogo from '../../assets/queuelylogo.png';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -50,8 +49,7 @@ const Register = () => {
         Back to Home
       </Link>
       <div className="logo">
-        <img src={queuelyLogo} alt="Queuely Logo" />
-        <h1>QUEUELY</h1>
+        <h1 style={{ letterSpacing: '-0.8px' }}>Queuely</h1>
       </div>
 
       <div className="form-card">

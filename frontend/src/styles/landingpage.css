@@ -1,5 +1,5 @@
 /* Landing Page - Blocky Bento Design */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Permanent+Marker&display=swap');
 
 .landing-page * {
   margin: 0;
@@ -9,70 +9,10 @@
 
 .landing-page {
   min-height: 100vh;
-  background: #000;
-  color: #fff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #0c0c0c;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-  position: relative;
-}
-
-/* Floating Background Elements */
-.floating-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.floating-item {
-  position: absolute;
-  color: rgba(74, 144, 226, 0.08);
-  /* Faint primary color */
-  filter: blur(1px);
-}
-
-.float-1 {
-  top: 10%;
-  left: 5%;
-  animation: float 12s ease-in-out infinite;
-}
-
-.float-2 {
-  top: 30%;
-  right: 8%;
-  animation: float 18s ease-in-out infinite reverse;
-}
-
-.float-3 {
-  top: 60%;
-  left: 10%;
-  animation: float 15s ease-in-out infinite;
-}
-
-.float-4 {
-  bottom: 15%;
-  right: 12%;
-  animation: float 20s ease-in-out infinite reverse;
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-
-  33% {
-    transform: translate(20px, -40px) rotate(10deg);
-  }
-
-  66% {
-    transform: translate(-20px, -20px) rotate(-10deg);
-  }
 }
 
 /* Header */
@@ -82,10 +22,8 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
+  background: #0c0c0c;
   padding: 15px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .landing-header-content {
@@ -319,156 +257,107 @@
   transform: rotate(8deg) translateY(40px);
 }
 
-/* Cinematic Scattered Elevator Background */
-.scattered-bg-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.scatter-img {
-  position: absolute;
-  border-radius: 32px;
-  opacity: 0.6;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
-  transition: transform 0.15s ease-out;
-  /* Smoother follow */
-  filter: brightness(0.7) saturate(1.2);
-}
-
-/* Cinematic Scatter Placement */
-.img-1 {
-  top: 10%;
-  left: 8%;
-  width: 450px;
-  z-index: 1;
-  filter: blur(2px) brightness(0.6);
-}
-
-/* Large foreground-ish */
-.img-2 {
-  top: 25%;
-  left: 65%;
-  width: 380px;
-  z-index: 0;
-}
-
-/* High right */
-.img-3 {
-  top: 40%;
-  left: 35%;
-  width: 420px;
-  z-index: 0;
-  filter: blur(1px);
-}
-
-/* Middle-ish overlap */
-.img-4 {
-  top: 65%;
-  left: 10%;
-  width: 360px;
-  z-index: 1;
-}
-
-/* Lower left */
-.img-5 {
-  top: 75%;
-  left: 75%;
-  width: 400px;
-  z-index: 0;
-}
-
-/* Deep right */
-.img-6 {
-  top: 85%;
-  left: 45%;
-  width: 350px;
-  z-index: 1;
-  filter: blur(3px);
-}
-
-/* Bottom middle blur */
-
 /* Bento Section */
 .bento-section {
   padding: 80px 40px 20px;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
-  min-height: 110vh;
-  /* Reduced from 180vh to tighten the layout */
+  min-height: auto;
 }
 
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 350px);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   position: relative;
   z-index: 2;
-  /* Ensure cards are above scattered images */
+  margin: 50px auto 0;
+  max-width: 1200px;
 }
 
 .bento-item {
-  border-radius: 24px;
+  border-radius: 32px;
   overflow: hidden;
   position: relative;
-  padding: 40px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  background: rgba(17, 17, 17, 0.7);
-  /* Glassy dark base */
-  backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  z-index: 1;
 }
 
-/* The Liquid Fill Effect */
-.bento-item::after {
+.bento-item::before {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   height: 100%;
-  background: #fff;
-  /* Changed to White */
-  transform: translateY(102%);
-  /* Increased to 102% to prevent sliver leak at the bottom */
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  z-index: 0;
+  background: #3b82f6;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
 }
 
-.bento-item:hover::after {
+.bento-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+}
+
+.bento-item:hover::before {
   transform: translateY(0);
 }
 
-/* Change text to black on hover for readability against white background */
-.bento-item:hover .bento-title,
-.bento-item:hover .bento-subtitle,
-.bento-item:hover h3,
-.bento-item:hover p,
-.bento-item:hover .bento-icon-box {
-  color: #000 !important;
-}
-
-.bento-content,
-.bento-icon-box,
 .bento-item h3,
-.bento-item p {
+.bento-item p,
+.bento-icon-box {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   transition: all 0.4s ease;
 }
 
-.bento-main {
-  grid-column: span 2;
+.bento-item:hover h3,
+.bento-item:hover p,
+.bento-item:hover .bento-icon-box {
+  color: #fff !important;
 }
 
-.bento-secondary {
-  grid-row: span 2;
+.bento-item:hover h3 {
+  transform: scale(1.05);
+  transform-origin: left;
+}
+
+.bento-item:hover p {
+  transform: scale(1.02);
+  transform-origin: left;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.bento-icon-box {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.08);
+  border-radius: 18px;
+  margin-bottom: 30px;
+  transition: all 0.4s ease;
+  color: #3b82f6;
+}
+
+.bento-item:hover .bento-icon-box {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+  transform: scale(1.1) rotate(-5deg);
 }
 
 /* Cleaned up old overrides */
@@ -539,48 +428,111 @@
 }
 
 .bento-item h3 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 15px;
   letter-spacing: -0.5px;
+  transition: all 0.4s ease;
 }
 
 .bento-item p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 15px;
+  color: #555;
+  font-size: 16px;
   line-height: 1.6;
+  transition: all 0.4s ease;
 }
 
-/* Stats Section */
-.stats-section {
-  padding: 60px 40px;
-  max-width: 1400px;
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Trust Section */
+.trust-section {
+  padding: 100px 40px;
+  background-color: #0c0c0c;
+}
+
+.trust-container {
+  max-width: 1200px;
   margin: 0 auto;
-}
-
-.stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
 }
 
-.stat-block {
-  background: #111;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 40px;
-  text-align: center;
+.trust-description {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.stat-number {
-  font-size: 48px;
-  font-weight: 800;
-  margin: 10px 0;
+.trust-description p {
+  font-size: 20px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 500px;
 }
 
-.stat-label {
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 500;
+.trust-typography {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.typography-wrapper {
+  position: relative;
+}
+
+.handwritten-text {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 80px;
+  line-height: 0.9;
+  color: #3b82f6;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+  margin: 0;
+}
+
+.text-accent {
+  display: inline-block;
+  position: relative;
+}
+
+.heart-icon-wrapper {
+  position: absolute;
+  top: -20px;
+  right: -60px;
+  transform: rotate(15deg);
+  opacity: 0.8;
+  animation: heartPulse 3s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+
+  0%,
+  100% {
+    transform: rotate(15deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(15deg) scale(1.1);
+  }
+}
+
+@media (max-width: 900px) {
+  .trust-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .trust-description p {
+    margin: 0 auto;
+  }
 }
 
 /* CTA Block */

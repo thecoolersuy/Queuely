@@ -6,7 +6,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import '../../styles/businessAuth.css';
-import queuelyLogo from '../../assets/queuelylogo.png';
 
 const BusinessLogin = () => {
   const navigate = useNavigate();
@@ -59,8 +58,7 @@ const BusinessLogin = () => {
       <div className="business-auth-right">
         <div className="business-auth-header">
           <div className="business-logo">
-            <img src={queuelyLogo} alt="Queuely Logo" />
-            <span>QUEUELY</span>
+            <span style={{ letterSpacing: '-0.8px' }}>Queuely</span>
           </div>
           <div className="business-header-buttons">
             <button
@@ -131,7 +129,7 @@ const BusinessLogin = () => {
                 {...register('acceptTerms')}
               />
               <label htmlFor="terms" className="business-checkbox-label">
-                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, including receiving instructional and promotional emails from SQUIRE.
+                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, including receiving instructional and promotional emails from Queuely.
               </label>
             </div>
             {errors.acceptTerms && (

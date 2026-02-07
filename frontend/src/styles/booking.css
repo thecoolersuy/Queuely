@@ -34,12 +34,8 @@
 .booking-header .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0;
     cursor: pointer;
-}
-
-.booking-header .logo img {
-    height: 48px;
 }
 
 .booking-header .logo h1 {

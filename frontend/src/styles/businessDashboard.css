@@ -30,11 +30,7 @@
   padding: 40px 24px;
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.sidebar-logo img {
-  height: 48px;
+  gap: 0;
 }
 
 .logo-text h1 {

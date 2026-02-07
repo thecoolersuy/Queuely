@@ -41,21 +41,16 @@ body {
   padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 32px;
+  justify-content: space-between;
 }
 
 .header .logo {
   display: flex;
   align-items: center;
-  gap: 1px;
+  gap: 8px;
   cursor: pointer;
   flex: 0 0 auto;
-}
-
-.header .logo img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
 }
 
 .header .logo h1 {
@@ -73,8 +68,8 @@ body {
   position: relative;
   flex: 1 1 auto;
   min-width: 200px;
-  max-width: 520px;
-  margin: 0 12px;
+  max-width: 600px;
+  margin: 0;
 }
 
 .header .search-input {
@@ -118,7 +113,7 @@ body {
 .header .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   flex: 0 0 auto;
 }
 

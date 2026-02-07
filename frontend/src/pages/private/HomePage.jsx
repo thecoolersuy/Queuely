@@ -5,7 +5,6 @@ import useAuth from '../../hooks/useAuth';
 import { apiCall } from '../../utils/api';
 import NotificationPanel from '../../components/NotificationPanel';
 import '../../styles/homepage.css';
-import queuelyLogo from '../../assets/queuelylogo.png';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -85,8 +84,7 @@ const HomePage = () => {
       <header className="header" data-testid="header">
         <div className="header-content">
           <div className="logo" data-testid="logo">
-            <img src={queuelyLogo} alt="Queuely Logo" />
-            <h1>QUEUELY</h1>
+            <h1 style={{ letterSpacing: '-0.8px' }}>Queuely</h1>
           </div>
           <div className="search-container">
             <input
@@ -100,20 +98,22 @@ const HomePage = () => {
             <span className="search-icon"><Search size={18} /></span>
           </div>
 
-          <div className="location-display">
-            <span><MapPin size={18} /></span>
-            <span>{userLocation}</span>
+          <div className="header-right">
+            <div className="location-display">
+              <span><MapPin size={18} /></span>
+              <span>{userLocation}</span>
+            </div>
+
+            <NotificationPanel />
+
+            <button onClick={handleLogout} className="btn-outline" data-testid="logout-btn">
+              Log Out
+            </button>
+
+            <button onClick={handleRegisterBusiness} className="btn-primary" data-testid="register-business-btn">
+              Register Your Business
+            </button>
           </div>
-
-          <NotificationPanel />
-
-          <button onClick={handleLogout} className="btn-outline" data-testid="logout-btn">
-            Log Out
-          </button>
-
-          <button onClick={handleRegisterBusiness} className="btn-primary" data-testid="register-business-btn">
-            Register Your Business
-          </button>
         </div>
       </header>
 
@@ -156,8 +156,7 @@ const HomePage = () => {
         <div className="footer-content">
           <div className="footer-left">
             <div className="footer-logo" data-testid="footer-logo">
-              <img src={queuelyLogo} alt="Queuely Logo" />
-              <h3>QUEUELY</h3>
+              <h3 style={{ letterSpacing: '-0.8px' }}>Queuely</h3>
             </div>
             <p>The only all-in-one barbershop</p>
             <p>business management system.</p>
