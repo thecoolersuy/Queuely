@@ -14,7 +14,10 @@ import {
     Sun,
     CircleHelp,
     Plus,
-    ShoppingBag
+    ShoppingBag,
+    Info,
+    Settings,
+    Bell
 } from 'lucide-react';
 import { apiCall } from '../../utils/api';
 import AddServiceBarberModal from '../../components/AddServiceBarberModal';
@@ -230,6 +233,10 @@ const BusinessDashboard = () => {
                         <Users className="nav-icon" />
                         <span>Barbers</span>
                     </button>
+                    <button onClick={() => setActiveView('profile')} className={`nav-item ${activeView === 'profile' ? 'active' : ''}`}>
+                        <Info className="nav-icon" />
+                        <span>Account</span>
+                    </button>
                 </nav>
 
                 <div className="sidebar-footer">
@@ -237,9 +244,13 @@ const BusinessDashboard = () => {
                         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
                         <span>Switch Theme</span>
                     </button>
-                    <div className="sidebar-user" onClick={() => setActiveView('profile')}>
-                        <div className="user-avatar">
-                            {user.firstName?.charAt(0) || 'A'}
+                    <div className={`sidebar-user ${activeView === 'profile' ? 'active' : ''}`} onClick={() => setActiveView('profile')}>
+                        <div className="user-avatar" style={{ overflow: 'hidden' }}>
+                            {user.profileImage ? (
+                                <img src={`http://localhost:5000/${user.profileImage}`} alt="P" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            ) : (
+                                user.firstName?.charAt(0) || 'A'
+                            )}
                         </div>
                         <div className="user-info">
                             <h4>{user.firstName || 'Admin'}</h4>
@@ -263,11 +274,14 @@ const BusinessDashboard = () => {
                     <>
                         <div className="dashboard-header">
                             <div className="dashboard-title-section">
-                                <h1>Business Dashboard</h1>
+                                <h1>{activeView === 'profile' ? 'Account Settings' : 'Business Dashboard'}</h1>
                                 <p>Welcome back, {user.firstName || user.shopName}. Here's what's happening today.</p>
                             </div>
-                            <div className="help-button">
-                                <CircleHelp size={24} />
+                            <div className="header-actions" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+
+                                <div className="help-button">
+                                    <CircleHelp size={22} />
+                                </div>
                             </div>
                         </div>
 

@@ -194,7 +194,7 @@ export const getBusinessProfile = async (req, res) => {
 export const updateBusinessProfile = async (req, res) => {
     try {
         const business_id = req.user.userId;
-        const { shopName, firstName, lastName, phoneNumber, country } = req.body;
+        const { shopName, firstName, lastName, phoneNumber, country, localLocation } = req.body;
         const profileImage = req.file ? req.file.path : undefined;
 
         const business = await Business.findByPk(business_id);
@@ -212,6 +212,17 @@ export const updateBusinessProfile = async (req, res) => {
         if (lastName) business.lastName = lastName;
         if (phoneNumber) business.phoneNumber = phoneNumber;
         if (country) business.country = country;
+        if (localLocation !== undefined) business.localLocation = localLocation;
+        if (req.body.businessFocus) {
+            try {
+                // If it's a string (from FormData), parse it
+                business.businessFocus = typeof req.body.businessFocus === 'string'
+                    ? JSON.parse(req.body.businessFocus)
+                    : req.body.businessFocus;
+            } catch (e) {
+                console.error('Error parsing businessFocus:', e);
+            }
+        }
 
         if (profileImage) {
             // Store relative path for frontend access

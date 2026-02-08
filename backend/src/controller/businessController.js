@@ -12,7 +12,7 @@ export const getBusinessDetails = async (req, res) => {
         // Get business info
         const business = await Business.findOne({
             where: { business_id },
-            attributes: ['business_id', 'shopName', 'email', 'phoneNumber', 'country', 'profileImage']
+            attributes: ['business_id', 'shopName', 'email', 'phoneNumber', 'country', 'localLocation', 'profileImage', 'businessFocus']
         });
 
         if (!business) {

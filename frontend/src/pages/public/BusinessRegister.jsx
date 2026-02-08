@@ -5,6 +5,7 @@ import { apiCall } from '../../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
+import { countries } from '../../utils/countries';
 import '../../styles/businessAuth.css';
 
 const BusinessRegister = () => {
@@ -14,10 +15,14 @@ const BusinessRegister = () => {
     const {
         register,
         handleSubmit,
+        watch,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(businessRegisterSchema),
     });
+
+    const selectedCountry = watch('country');
 
     const onSubmit = async (data) => {
         try {
@@ -193,26 +198,105 @@ const BusinessRegister = () => {
                                 {...register('country')}
                             >
                                 <option value="">Select your country</option>
-                                <option value="US">United States</option>
-                                <option value="UK">United Kingdom</option>
-                                <option value="CA">Canada</option>
-                                <option value="AU">Australia</option>
-                                <option value="NP">Nepal</option>
-                                <option value="IN">India</option>
-                                <option value="PK">Pakistan</option>
-                                <option value="BD">Bangladesh</option>
+                                {countries.map((country) => (
+                                    <option key={country.code} value={country.code}>
+                                        {country.name}
+                                    </option>
+                                ))}
                             </select>
                             {errors.country && (
                                 <p className="business-error-message">{errors.country.message}</p>
                             )}
                         </div>
 
+                        {/* Local Location (shown only for Nepal) */}
+                        {selectedCountry === 'NP' && (
+                            <div className="business-form-group">
+                                <label className="business-form-label">Local Location (City/District)</label>
+                                <input
+                                    type="text"
+                                    className="business-form-input"
+                                    placeholder="e.g., Kathmandu, Pokhara, Lalitpur"
+                                    {...register('localLocation')}
+                                />
+                                {errors.localLocation && (
+                                    <p className="business-error-message">{errors.localLocation.message}</p>
+                                )}
+                                <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>
+                                    Enter your city or district for precise map location
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Business Focus Section */}
+                        <div className="business-form-group">
+                            <label className="business-form-label">What's your business focus?</label>
+                            <p style={{ fontSize: '12px', color: '#6b7280', marginBottom: '12px' }}>
+                                Select all that apply to your shop
+                            </p>
+                            <div style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '10px',
+                                marginBottom: '20px'
+                            }}>
+                                {[
+                                    'Classic Cut', 'Modern Fade', 'Beard Trim',
+                                    'Hair Styling', 'Kids Cut', 'Hot Shave',
+                                    'Hair Color', 'Facial', 'Eyebrows'
+                                ].map(focus => {
+                                    const currentFocuses = watch('businessFocus') || [];
+                                    const isSelected = currentFocuses.includes(focus);
+
+                                    return (
+                                        <div
+                                            key={focus}
+                                            onClick={() => {
+                                                const nextFocuses = isSelected
+                                                    ? currentFocuses.filter(f => f !== focus)
+                                                    : [...currentFocuses, focus];
+                                                setValue('businessFocus', nextFocuses);
+                                            }}
+                                            style={{
+                                                padding: '10px 20px',
+                                                borderRadius: '30px',
+                                                backgroundColor: isSelected ? '#000' : '#F3F4F6',
+                                                color: isSelected ? '#FFF' : '#1F2937',
+                                                fontSize: '14px',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                border: `1px solid ${isSelected ? '#000' : '#E5E7EB'}`,
+                                                transition: 'all 0.2s ease',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '8px',
+                                                userSelect: 'none'
+                                            }}
+                                        >
+                                            {focus}
+                                            {isSelected && (
+                                                <div style={{
+                                                    width: '16px',
+                                                    height: '16px',
+                                                    borderRadius: '50%',
+                                                    backgroundColor: '#FFF',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    color: '#000',
+                                                    fontSize: '10px'
+                                                }}>✓</div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
                         {/* Terms Checkbox */}
                         <div className="business-checkbox-group">
                             <input
                                 type="checkbox"
-                                id="terms"
-                                className="business-checkbox"
                                 {...register('acceptTerms')}
                             />
                             <label htmlFor="terms" className="business-checkbox-label">

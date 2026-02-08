@@ -40,8 +40,16 @@ const Business = sequelize.define('Business', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    localLocation: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     profileImage: {
         type: DataTypes.STRING,
+        allowNull: true,
+    },
+    businessFocus: {
+        type: DataTypes.JSON,
         allowNull: true,
     },
 }, {

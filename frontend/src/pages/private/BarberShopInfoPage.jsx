@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Star, MapPin, Phone, Calendar } from 'lucide-react';
 import { apiCall } from '../../utils/api';
+import { countries } from '../../utils/countries';
 import '../../styles/barbershopinfo.css';
 
 const BarberShopInfoPage = () => {
@@ -14,24 +15,8 @@ const BarberShopInfoPage = () => {
 
   // Function to format country code to full location
   const getLocationFromCountry = (countryCode) => {
-    const countryMap = {
-      'US': 'United States',
-      'UK': 'United Kingdom',
-      'CA': 'Canada',
-      'AU': 'Australia',
-      'DE': 'Germany',
-      'FR': 'France',
-      'ES': 'Spain',
-      'IT': 'Italy',
-      'JP': 'Japan',
-      'CN': 'China',
-      'BR': 'Brazil',
-      'MX': 'Mexico',
-      'IN': 'India',
-      'NG': 'Nigeria',
-      'ZA': 'South Africa',
-    };
-    return countryMap[countryCode] || countryCode;
+    const country = countries.find(c => c.code === countryCode);
+    return country ? country.name : countryCode;
   };
 
   // Function to get coordinates for map center based on country
@@ -121,7 +106,17 @@ const BarberShopInfoPage = () => {
   const coordinates = getCountryCoordinates(business.country);
 
   // Generate Google Maps embed URL
-  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(fullLocation)}&zoom=${coordinates.zoom}`;
+  // If business is in Nepal and has localLocation, use that for a zoomed-in view
+  let mapLocation = fullLocation;
+  let mapZoom = coordinates.zoom;
+
+  if (business.country === 'NP' && business.localLocation) {
+    // Use local location for Nepal businesses (e.g., "Kathmandu, Nepal")
+    mapLocation = `${business.localLocation}, Nepal`;
+    mapZoom = 13; // City-level zoom for local locations
+  }
+
+  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(mapLocation)}&zoom=${mapZoom}`;
 
 
   return (
@@ -223,17 +218,39 @@ const BarberShopInfoPage = () => {
 
           {/* Right Sidebar */}
           <div className="info-right-sidebar">
-            <div className="sidebar-card">
-              <div className="sidebar-icon">
-                <MapPin size={40} />
-              </div>
-              <h3 className="sidebar-business-name">{business.shopName}</h3>
+            <div className="sidebar-card" style={{
+              backgroundColor: 'white',
+              borderRadius: '24px',
+              padding: '30px',
+              boxShadow: '0 20px 40px -10px rgba(0,0,0,0.08)',
+              border: '1px solid #F3F4F6',
+              textAlign: 'left'
+            }}>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '800',
+                color: '#111827',
+                marginBottom: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px'
+              }}>
+                <MapPin size={20} color="#2563eb" />
+                Location
+              </h3>
+
               {/* Map Display */}
-              <div className="sidebar-map">
+              <div style={{
+                marginBottom: '20px',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid #E5E7EB',
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
+              }}>
                 <iframe
                   width="100%"
-                  height="200"
-                  style={{ border: 0, borderRadius: '0.5rem' }}
+                  height="180"
+                  style={{ border: 0 }}
                   loading="lazy"
                   allowFullScreen
                   referrerPolicy="no-referrer-when-downgrade"
@@ -242,21 +259,95 @@ const BarberShopInfoPage = () => {
                 ></iframe>
               </div>
 
-              <p className="sidebar-address">
-                <span style={{ display: 'inline', marginRight: '4px' }}>{fullLocation}</span>
-                {business.country}
-              </p>
-
-              <div className="sidebar-actions">
-                <button className="icon-button">
-                  <MapPin size={20} />
-                </button>
-                <button className="icon-button">
-                  <Phone size={20} />
-                </button>
+              <div style={{ marginBottom: '25px' }}>
+                <p style={{
+                  fontSize: '15px',
+                  color: '#4B5563',
+                  fontWeight: '500',
+                  lineHeight: '1.5',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '8px'
+                }}>
+                  {business.country === 'NP' && business.localLocation ? (
+                    <>
+                      <span>{business.localLocation}, {fullLocation}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{fullLocation}, {business.country}</span>
+                    </>
+                  )}
+                </p>
               </div>
 
-              <button className="book-now-button" onClick={() => navigate(`/book/${id}`)}>
+              <div style={{
+                padding: '20px 0',
+                borderTop: '1px solid #F3F4F6',
+                borderBottom: '1px solid #F3F4F6',
+                marginBottom: '25px'
+              }}>
+                <h4 style={{ fontSize: '12px', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '15px' }}>
+                  Contact Information
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: 'rgba(37, 99, 235, 0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <Phone size={18} color="#2563eb" />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '11px', color: '#9CA3AF', margin: 0, fontWeight: '600' }}>Phone</p>
+                      <p style={{ fontSize: '14px', color: '#111827', margin: 0, fontWeight: '700' }}>{business.phoneNumber}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {business.businessFocus && Array.isArray(business.businessFocus) && business.businessFocus.length > 0 && (
+                <div style={{ marginBottom: '30px' }}>
+                  <h4 style={{ fontSize: '12px', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '15px' }}>
+                    Shop Specialties
+                  </h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {business.businessFocus.map(focus => (
+                      <span key={focus} style={{
+                        padding: '8px 14px',
+                        borderRadius: '12px',
+                        backgroundColor: '#F9FAFB',
+                        color: '#1F2937',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        border: '1px solid #E5E7EB',
+                        transition: 'all 0.2s ease',
+                      }}>
+                        {focus}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <button
+                className="book-now-button"
+                onClick={() => navigate(`/book/${id}`)}
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  backgroundColor: '#2563eb',
+                  color: 'white',
+                  borderRadius: '16px',
+                  fontSize: '16px',
+                  fontWeight: '800',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 10px 15px -3px rgba(37, 99, 235, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  transition: 'all 0.2s ease'
+                }}
+              >
                 <Calendar size={20} />
                 Book Now
               </button>

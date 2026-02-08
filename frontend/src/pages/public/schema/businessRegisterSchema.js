@@ -19,6 +19,8 @@ export const businessRegisterSchema = z.object({
         .min(6, 'Password must be at least 6 characters'),
     country: z.string()
         .min(1, 'Please select a country'),
+    localLocation: z.string().optional(),
+    businessFocus: z.array(z.string()).optional(),
     acceptTerms: z.boolean()
         .refine(val => val === true, {
             message: 'You must accept the terms and conditions'

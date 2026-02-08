@@ -4,7 +4,7 @@ import { generateToken } from '../security/jwt-utils.js';
 
 export const registerBusiness = async (req, res) => {
     try {
-        const { shopName, firstName, lastName, email, phoneNumber, password, country } = req.body;
+        const { shopName, firstName, lastName, email, phoneNumber, password, country, localLocation, businessFocus } = req.body;
 
         if (!shopName || !firstName || !lastName || !email || !phoneNumber || !password || !country) {
             return res.status(400).json({
@@ -31,7 +31,8 @@ export const registerBusiness = async (req, res) => {
             phoneNumber,
             password: hashedPassword,
             country,
-
+            localLocation: localLocation || null,
+            businessFocus: businessFocus || null,
         });
 
         const token = generateToken(business.business_id, business.email, 'business');
