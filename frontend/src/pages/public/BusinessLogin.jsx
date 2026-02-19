@@ -117,7 +117,7 @@ const BusinessLogin = () => {
 
             {/* Forgot Password */}
             <div className="business-forgot-password">
-              <a href="#">Forgot password?</a>
+              <a href="/business-forgot-password">Forgot password?</a>
             </div>
 
             {/* Terms Checkbox */}

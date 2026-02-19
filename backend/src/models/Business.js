@@ -52,6 +52,18 @@ const Business = sequelize.define('Business', {
         type: DataTypes.JSON,
         allowNull: true,
     },
+    resetOtp: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    resetOtpExpiry: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
+    resetOtpVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 }, {
     tableName: 'businesses',
     timestamps: true,

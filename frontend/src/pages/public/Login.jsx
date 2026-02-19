@@ -83,9 +83,9 @@ const Login = () => {
 
           {/* Forgot Password Link */}
           <div style={{ textAlign: 'right', marginBottom: '20px' }}>
-            <a href="/forgot-password" className="auth-link" style={{ fontSize: '0.9rem' }}>
+            <Link to="/forgot-password" className="auth-link" style={{ fontSize: '0.9rem' }}>
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           {/* API Error */}
