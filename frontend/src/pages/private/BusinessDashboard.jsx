@@ -392,6 +392,8 @@ const BusinessDashboard = () => {
                                                                     <button className="btn-tick" onClick={() => handleBookingAction(booking.booking_id, 'ACCEPTED')}>✓</button>
                                                                     <button className="btn-cross" onClick={() => handleBookingAction(booking.booking_id, 'DECLINED')}>✕</button>
                                                                 </div>
+                                                            ) : booking.status === 'ACCEPTED' ? (
+                                                                <button className="btn-done" onClick={() => handleBookingAction(booking.booking_id, 'COMPLETED')}>Mark Done</button>
                                                             ) : (
                                                                 <EllipsisVertical size={18} className="more-btn" />
                                                             )}
@@ -456,7 +458,16 @@ const BusinessDashboard = () => {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <EllipsisVertical size={18} className="more-btn" />
+                                                    {booking.status === 'PENDING' ? (
+                                                        <div className="quick-actions">
+                                                            <button className="btn-tick" onClick={() => handleBookingAction(booking.booking_id, 'ACCEPTED')}>✓</button>
+                                                            <button className="btn-cross" onClick={() => handleBookingAction(booking.booking_id, 'DECLINED')}>✕</button>
+                                                        </div>
+                                                    ) : booking.status === 'ACCEPTED' ? (
+                                                        <button className="btn-done" onClick={() => handleBookingAction(booking.booking_id, 'COMPLETED')}>Mark Done</button>
+                                                    ) : (
+                                                        <EllipsisVertical size={18} className="more-btn" />
+                                                    )}
                                                 </td>
                                             </tr>
                                         ))

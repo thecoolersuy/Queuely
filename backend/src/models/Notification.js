@@ -20,7 +20,7 @@ const Notification = sequelize.define('Notification', {
         allowNull: false,
     },
     type: {
-        type: DataTypes.ENUM('BOOKING_PENDING', 'BOOKING_ACCEPTED', 'BOOKING_DECLINED', 'GENERAL'),
+        type: DataTypes.ENUM('BOOKING_PENDING', 'BOOKING_ACCEPTED', 'BOOKING_DECLINED', 'BOOKING_COMPLETED', 'NEW_REVIEW', 'GENERAL'),
         defaultValue: 'GENERAL',
     },
     is_read: {

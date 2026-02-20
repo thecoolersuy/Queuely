@@ -13,6 +13,7 @@ const BusinessLogin = React.lazy(() => import("./pages/public/BusinessLogin"));
 const BusinessDashboard = React.lazy(() => import("./pages/private/BusinessDashboard"));
 const BarberShopInfoPage = React.lazy(() => import("./pages/private/BarberShopInfoPage"));
 const BookingPage = React.lazy(() => import("./pages/private/BookingPage"));
+const MyBookings = React.lazy(() => import("./pages/private/MyBookings"));
 const ForgotPassword = React.lazy(() => import("./pages/public/ForgotPassword"));
 
 
@@ -63,6 +64,7 @@ const AppRoutes = () => {
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/barbershop/:id" element={<BarberShopInfoPage />} />
           <Route path="/book/:id" element={<BookingPage />} />
+          <Route path="/my-bookings" element={<MyBookings />} />
         </Route>
 
         {/* Business Private routes */}

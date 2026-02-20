@@ -2,6 +2,8 @@
 import Business from '../models/Business.js';
 import Barber from '../models/Barber.js';
 import Service from '../models/Service.js';
+import Review from '../models/Review.js';
+import User from '../models/User.js';
 import { sequelize } from '../database/index.js';
 
 // Get public business details with barbers and services
@@ -36,12 +38,45 @@ export const getBusinessDetails = async (req, res) => {
             order: [['createdAt', 'ASC']]
         });
 
+        // Get all reviews for this business
+        const reviews = await Review.findAll({
+            where: { business_id },
+            order: [['createdAt', 'DESC']]
+        });
+
+        // Get user info for reviews
+        const userIds = [...new Set(reviews.map(r => r.user_id))];
+        const users = await User.findAll({
+            where: {
+                user_id: userIds
+            },
+            attributes: ['user_id', 'name']
+        });
+
+        const userMap = {};
+        users.forEach(u => {
+            userMap[u.user_id] = u.name;
+        });
+
+        const reviewsWithUser = reviews.map(r => ({
+            ...r.toJSON(),
+            user_name: userMap[r.user_id] || 'Anonymous'
+        }));
+
+        // Calculate average rating
+        const avgRating = reviews.length > 0
+            ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+            : '0.0';
+
         res.status(200).json({
             success: true,
             data: {
                 business: business.toJSON(),
                 barbers,
-                services
+                services,
+                reviews: reviewsWithUser,
+                rating: avgRating,
+                reviewCount: reviews.length
             }
         });
     } catch (error) {

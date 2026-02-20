@@ -2,6 +2,7 @@ import Booking from '../models/Booking.js';
 import Business from '../models/Business.js';
 import User from '../models/User.js';
 import Notification from '../models/Notification.js';
+import Review from '../models/Review.js';
 
 export const createBooking = async (req, res) => {
     try {
@@ -46,6 +47,38 @@ export const createBooking = async (req, res) => {
         });
     } catch (error) {
         console.error('Create booking error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+// Get User Bookings
+export const getUserBookings = async (req, res) => {
+    try {
+        const user_id = req.user.userId;
+
+        // Ensure association is defined
+        Booking.hasOne(Review, { foreignKey: 'booking_id' });
+        Review.belongsTo(Booking, { foreignKey: 'booking_id' });
+
+        const bookings = await Booking.findAll({
+            where: { user_id },
+            include: [{
+                model: Review,
+                attributes: ['review_id', 'rating', 'comment'],
+                required: false // LEFT JOIN
+            }],
+            order: [['date', 'DESC'], ['time', 'DESC']]
+        });
+
+        res.status(200).json({
+            success: true,
+            data: bookings
+        });
+    } catch (error) {
+        console.error('Get user bookings error:', error);
         res.status(500).json({
             success: false,
             message: 'Server error'

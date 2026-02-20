@@ -13,13 +13,11 @@ const BarberShopInfoPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to format country code to full location
   const getLocationFromCountry = (countryCode) => {
     const country = countries.find(c => c.code === countryCode);
     return country ? country.name : countryCode;
   };
 
-  // Function to get coordinates for map center based on country
   const getCountryCoordinates = (countryCode) => {
     const coordMap = {
       'US': { lat: 37.0902, lng: -95.7129, zoom: 4 },
@@ -37,6 +35,7 @@ const BarberShopInfoPage = () => {
       'IN': { lat: 20.5937, lng: 78.9629, zoom: 5 },
       'NG': { lat: 9.0820, lng: 8.6753, zoom: 6 },
       'ZA': { lat: -30.5595, lng: 22.9375, zoom: 5 },
+      'NP': { lat: 28.3949, lng: 84.1240, zoom: 7 },
     };
     return coordMap[countryCode] || { lat: 0, lng: 0, zoom: 2 };
   };
@@ -51,13 +50,12 @@ const BarberShopInfoPage = () => {
           setError('Failed to load business details');
         }
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching business details:', error);
+      } catch (err) {
+        console.error('Error fetching business details:', err);
         setError('Failed to load business details');
         setLoading(false);
       }
     };
-
     fetchBusinessDetails();
   }, [id]);
 
@@ -72,10 +70,6 @@ const BarberShopInfoPage = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.location.href = '/business-register';
-  };
-
-  const handleBack = () => {
-    navigate('/homepage');
   };
 
   if (loading) {
@@ -98,34 +92,40 @@ const BarberShopInfoPage = () => {
     );
   }
 
-  const { business, barbers, services } = businessData;
+  const {
+    business,
+    barbers,
+    services,
+    reviews = [],
+    rating = '0.0',
+    reviewCount = 0
+  } = businessData;
+
   const bannerImage = business.profileImage
     ? `http://localhost:5000/${business.profileImage}`
     : null;
+
   const fullLocation = getLocationFromCountry(business.country);
   const coordinates = getCountryCoordinates(business.country);
 
-  // Generate Google Maps embed URL
-  // If business is in Nepal and has localLocation, use that for a zoomed-in view
   let mapLocation = fullLocation;
   let mapZoom = coordinates.zoom;
-
   if (business.country === 'NP' && business.localLocation) {
-    // Use local location for Nepal businesses (e.g., "Kathmandu, Nepal")
     mapLocation = `${business.localLocation}, Nepal`;
-    mapZoom = 13; // City-level zoom for local locations
+    mapZoom = 13;
   }
 
   const mapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(mapLocation)}&zoom=${mapZoom}`;
 
+  const roundedRating = Math.round(parseFloat(rating));
 
   return (
     <div className="barbershop-info-page">
-      {/* Header */}
+      {/* ── Header ── */}
       <header className="info-header">
         <div className="info-header-content">
           <div className="info-header-left">
-            <button className="info-back-button" onClick={handleBack}>
+            <button className="info-back-button" onClick={() => navigate('/homepage')}>
               <ArrowLeft size={24} />
             </button>
             <div className="info-logo">
@@ -133,69 +133,54 @@ const BarberShopInfoPage = () => {
             </div>
           </div>
           <div className="info-header-right">
-            <button onClick={handleLogout} className="btn-outline-info">
-              Log Out
-            </button>
-            <button onClick={handleRegisterBusiness} className="btn-primary-info">
-              Register Your Business
-            </button>
+            <button onClick={handleLogout} className="btn-outline-info">Log Out</button>
+            <button onClick={handleRegisterBusiness} className="btn-primary-info">Register Your Business</button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* ── Main ── */}
       <main className="info-main">
         <div className="info-container">
+
+          {/* Left Section */}
           <div className="info-left-section">
-            {/* Banner Image */}
             <div className="banner-container">
-              {bannerImage ? (
-                <img src={bannerImage} alt={business.shopName} className="banner-image" />
-              ) : (
-                <div className="banner-placeholder" style={{ backgroundColor: '#8B4513' }}></div>
-              )}
+              {bannerImage
+                ? <img src={bannerImage} alt={business.shopName} className="banner-image" />
+                : <div className="banner-placeholder" style={{ backgroundColor: '#8B4513' }} />}
             </div>
 
-            {/* Business Name */}
             <div className="business-header">
               <h2 className="business-name">{business.shopName}</h2>
             </div>
 
             {/* Tabs */}
             <div className="tabs">
-              <button
-                className={`tab ${activeTab === 'barbers' ? 'active' : ''}`}
-                onClick={() => setActiveTab('barbers')}
-              >
-                Barbers
-              </button>
-              <button
-                className={`tab ${activeTab === 'services' ? 'active' : ''}`}
-                onClick={() => setActiveTab('services')}
-              >
-                Services
-              </button>
+              {['barbers', 'services', 'reviews'].map((tab) => (
+                <button
+                  key={tab}
+                  className={`tab ${activeTab === tab ? 'active' : ''}`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab === 'reviews' ? `Reviews (${reviewCount})` : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
             </div>
 
             {/* Tab Content */}
             <div className="tab-content">
-              {/* Barbers Tab */}
               {activeTab === 'barbers' && (
                 <div className="barbers-section">
                   <h3 className="section-title">Barbers</h3>
                   <div className="barbers-grid">
-                    {barbers.length === 0 ? (
-                      <p>No barbers available</p>
-                    ) : (
-                      barbers.map((barber) => (
-                        <BarberCard key={barber.barber_id} barber={barber} />
-                      ))
-                    )}
+                    {barbers.length === 0
+                      ? <p>No barbers available</p>
+                      : barbers.map((barber) => <BarberCard key={barber.barber_id} barber={barber} />)}
                   </div>
                 </div>
               )}
 
-              {/* Services Tab */}
               {activeTab === 'services' && (
                 <div className="services-section">
                   <div className="services-header">
@@ -203,13 +188,20 @@ const BarberShopInfoPage = () => {
                     <button className="show-all-link">Show all {services.length} services</button>
                   </div>
                   <div className="services-list">
-                    {services.length === 0 ? (
-                      <p>No services available</p>
-                    ) : (
-                      services.slice(0, 4).map((service) => (
-                        <ServiceCard key={service.service_id} service={service} />
-                      ))
-                    )}
+                    {services.length === 0
+                      ? <p>No services available</p>
+                      : services.slice(0, 4).map((service) => <ServiceCard key={service.service_id} service={service} />)}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'reviews' && (
+                <div className="reviews-section">
+                  <h3 className="section-title">Customer Reviews</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
+                    {reviews.length === 0
+                      ? <p style={{ color: '#888' }}>No reviews yet. Be the first to leave one!</p>
+                      : reviews.map((review) => <ReviewCard key={review.review_id} review={review} />)}
                   </div>
                 </div>
               )}
@@ -224,101 +216,80 @@ const BarberShopInfoPage = () => {
               padding: '30px',
               boxShadow: '0 20px 40px -10px rgba(0,0,0,0.08)',
               border: '1px solid #F3F4F6',
-              textAlign: 'left'
             }}>
+
+
+
+              {/* Location heading */}
               <h3 style={{
-                fontSize: '18px',
-                fontWeight: '800',
-                color: '#111827',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px'
+                fontSize: '18px', fontWeight: '800', color: '#111827',
+                marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px'
               }}>
                 <MapPin size={20} color="#2563eb" />
                 Location
               </h3>
 
-              {/* Map Display */}
+              {/* Map */}
               <div style={{
-                marginBottom: '20px',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                border: '1px solid #E5E7EB',
-                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
+                marginBottom: '16px', borderRadius: '16px', overflow: 'hidden',
+                border: '1px solid #E5E7EB', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
               }}>
                 <iframe
-                  width="100%"
-                  height="180"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  allowFullScreen
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={mapUrl}
-                  title="Business Location Map"
-                ></iframe>
+                  width="100%" height="180" style={{ border: 0 }}
+                  loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade"
+                  src={mapUrl} title="Business Location Map"
+                />
               </div>
 
-              <div style={{ marginBottom: '25px' }}>
-                <p style={{
-                  fontSize: '15px',
-                  color: '#4B5563',
-                  fontWeight: '500',
-                  lineHeight: '1.5',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '8px'
-                }}>
-                  {business.country === 'NP' && business.localLocation ? (
-                    <>
-                      <span>{business.localLocation}, {fullLocation}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>{fullLocation}, {business.country}</span>
-                    </>
-                  )}
+              <div style={{ marginBottom: '20px' }}>
+                <p style={{ fontSize: '15px', color: '#4B5563', fontWeight: '500' }}>
+                  {business.country === 'NP' && business.localLocation
+                    ? `${business.localLocation}, ${fullLocation}`
+                    : `${fullLocation}, ${business.country}`}
                 </p>
               </div>
 
+              {/* Contact */}
               <div style={{
-                padding: '20px 0',
-                borderTop: '1px solid #F3F4F6',
-                borderBottom: '1px solid #F3F4F6',
-                marginBottom: '25px'
+                padding: '16px 0', borderTop: '1px solid #F3F4F6',
+                borderBottom: '1px solid #F3F4F6', marginBottom: '20px'
               }}>
-                <h4 style={{ fontSize: '12px', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '15px' }}>
+                <h4 style={{
+                  fontSize: '11px', fontWeight: '800', color: '#9CA3AF',
+                  textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px'
+                }}>
                   Contact Information
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: 'rgba(37, 99, 235, 0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <Phone size={18} color="#2563eb" />
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '11px', color: '#9CA3AF', margin: 0, fontWeight: '600' }}>Phone</p>
-                      <p style={{ fontSize: '14px', color: '#111827', margin: 0, fontWeight: '700' }}>{business.phoneNumber}</p>
-                    </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '36px', height: '36px', borderRadius: '10px',
+                    backgroundColor: 'rgba(37,99,235,0.05)',
+                    display: 'flex', justifyContent: 'center', alignItems: 'center'
+                  }}>
+                    <Phone size={18} color="#2563eb" />
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '11px', color: '#9CA3AF', margin: 0, fontWeight: '600' }}>Phone</p>
+                    <p style={{ fontSize: '14px', color: '#111827', margin: 0, fontWeight: '700' }}>{business.phoneNumber}</p>
                   </div>
                 </div>
               </div>
 
-              {business.businessFocus && Array.isArray(business.businessFocus) && business.businessFocus.length > 0 && (
-                <div style={{ marginBottom: '30px' }}>
-                  <h4 style={{ fontSize: '12px', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '15px' }}>
+              {/* Specialties */}
+              {Array.isArray(business.businessFocus) && business.businessFocus.length > 0 && (
+                <div style={{ marginBottom: '24px' }}>
+                  <h4 style={{
+                    fontSize: '11px', fontWeight: '800', color: '#9CA3AF',
+                    textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px'
+                  }}>
                     Shop Specialties
                   </h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                     {business.businessFocus.map(focus => (
                       <span key={focus} style={{
-                        padding: '8px 14px',
-                        borderRadius: '12px',
-                        backgroundColor: '#F9FAFB',
-                        color: '#1F2937',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        border: '1px solid #E5E7EB',
-                        transition: 'all 0.2s ease',
+                        padding: '7px 12px', borderRadius: '10px',
+                        backgroundColor: '#F9FAFB', color: '#1F2937',
+                        fontSize: '12px', fontWeight: '600', border: '1px solid #E5E7EB',
                       }}>
                         {focus}
                       </span>
@@ -327,63 +298,83 @@ const BarberShopInfoPage = () => {
                 </div>
               )}
 
+              {/* Book Now */}
               <button
                 className="book-now-button"
                 onClick={() => navigate(`/book/${id}`)}
                 style={{
-                  width: '100%',
-                  padding: '16px',
-                  backgroundColor: '#2563eb',
-                  color: 'white',
-                  borderRadius: '16px',
-                  fontSize: '16px',
-                  fontWeight: '800',
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 10px 15px -3px rgba(37, 99, 235, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '10px',
-                  transition: 'all 0.2s ease'
+                  width: '100%', padding: '16px', backgroundColor: '#2563eb',
+                  color: 'white', borderRadius: '16px', fontSize: '16px',
+                  fontWeight: '800', border: 'none', cursor: 'pointer',
+                  boxShadow: '0 10px 15px -3px rgba(37,99,235,0.3)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  gap: '10px', transition: 'all 0.2s ease'
                 }}
               >
                 <Calendar size={20} />
                 Book Now
               </button>
+
+              {/* Sidebar Reviews Preview */}
+              {reviews.length > 0 && (
+                <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid #F3F4F6' }}>
+                  <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>
+                    Recent Reviews
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {reviews.slice(0, 2).map(review => (
+                      <div key={review.review_id} style={{ fontSize: '13px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px', alignItems: 'center' }}>
+                          <span style={{ fontWeight: '700', color: '#1F2937' }}>{review.user_name || 'Anonymous'}</span>
+                          <div style={{ display: 'flex', gap: '1px' }}>
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={10} fill={i < review.rating ? "#f59e0b" : "none"} color={i < review.rating ? "#f59e0b" : "#d1d5db"} />
+                            ))}
+                          </div>
+                        </div>
+                        <p style={{ margin: 0, color: '#4B5563', lineHeight: '1.5', fontStyle: 'italic' }}>
+                          "{review.comment}"
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  {reviews.length > 2 && (
+                    <button
+                      onClick={() => setActiveTab('reviews')}
+                      style={{
+                        marginTop: '16px', border: 'none', background: 'none',
+                        color: '#2563eb', fontSize: '13px', fontWeight: '700',
+                        cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: '4px'
+                      }}
+                    >
+                      View all {reviewCount} reviews
+                    </button>
+                  )}
+                </div>
+              )}
+
             </div>
           </div>
+
         </div>
       </main>
     </div>
   );
 };
 
-// Barber Card Component
+// ── Barber Card ──
 const BarberCard = ({ barber }) => {
   const getInitials = (name) => {
     const parts = name.split(' ');
-    if (parts.length >= 2) {
-      return (parts[0][0] + parts[1][0]).toUpperCase();
-    }
-    return name.substring(0, 2).toUpperCase();
-  };
-
-  const getRatingDisplay = () => {
-    // Placeholder rating calculation
-    return '5.0';
+    return parts.length >= 2
+      ? (parts[0][0] + parts[1][0]).toUpperCase()
+      : name.substring(0, 2).toUpperCase();
   };
 
   return (
     <div className="barber-card">
-      <div className="barber-avatar">
-        {getInitials(barber.name)}
-      </div>
+      <div className="barber-avatar">{getInitials(barber.name)}</div>
       <div className="barber-info">
-        <div className="barber-rating">
-          <span className="barber-rating-number">{getRatingDisplay()}</span>
-          <span className="barber-review-count">({Math.floor(Math.random() * 50) + 10})</span>
-        </div>
         <h4 className="barber-name">{barber.name}</h4>
         <p className={`barber-status ${barber.status === 'ACTIVE' ? 'available' : 'unavailable'}`}>
           {barber.status === 'ACTIVE' ? 'Available Today' : 'Unavailable'}
@@ -393,17 +384,58 @@ const BarberCard = ({ barber }) => {
   );
 };
 
-// Service Card Component
-const ServiceCard = ({ service }) => {
-  return (
-    <div className="service-card">
-      <div className="service-info">
-        <h4 className="service-name">{service.name}</h4>
-        <p className="service-duration">All • {service.duration} mins</p>
-      </div>
-      <div className="service-price">${service.price}</div>
+// ── Service Card ──
+const ServiceCard = ({ service }) => (
+  <div className="service-card">
+    <div className="service-info">
+      <h4 className="service-name">{service.name}</h4>
+      <p className="service-duration">All • {service.duration} mins</p>
     </div>
-  );
-};
+    <div className="service-price">${service.price}</div>
+  </div>
+);
+
+// ── Review Card ──
+const ReviewCard = ({ review }) => (
+  <div style={{
+    backgroundColor: 'white', borderRadius: '14px', padding: '20px',
+    border: '1px solid #f3f4f6', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{
+          width: '36px', height: '36px', borderRadius: '50%',
+          backgroundColor: '#e5e7eb', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', fontWeight: '700', fontSize: '14px', color: '#4b5563'
+        }}>
+          {review.user_name ? review.user_name.charAt(0).toUpperCase() : '?'}
+        </div>
+        <div>
+          <p style={{ margin: 0, fontWeight: '700', fontSize: '14px', color: '#111827' }}>{review.user_name || 'Anonymous'}</p>
+          <p style={{ margin: 0, fontSize: '12px', color: '#9ca3af' }}>
+            {new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </div>
+      </div>
+      {/* Star rating */}
+      <div style={{ display: 'flex', gap: '2px' }}>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            size={15}
+            fill={star <= review.rating ? '#f59e0b' : 'none'}
+            color={star <= review.rating ? '#f59e0b' : '#e5e7eb'}
+            strokeWidth={1.5}
+          />
+        ))}
+      </div>
+    </div>
+    {review.comment && (
+      <p style={{ margin: 0, color: '#4b5563', fontSize: '14px', lineHeight: '1.6' }}>
+        {review.comment}
+      </p>
+    )}
+  </div>
+);
 
 export default BarberShopInfoPage;

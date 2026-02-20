@@ -106,14 +106,14 @@ export const getAllBookings = async (req, res) => {
     }
 };
 
-// Update Booking Status (Accept/Decline)
+// Update Booking Status (Accept/Decline/Complete)
 export const updateBookingStatus = async (req, res) => {
     try {
         const { booking_id } = req.params;
-        const { status } = req.body; // 'ACCEPTED' or 'DECLINED'
+        const { status } = req.body; // 'ACCEPTED', 'DECLINED', or 'COMPLETED'
         const business_id = req.user.userId;
 
-        if (!['ACCEPTED', 'DECLINED'].includes(status)) {
+        if (!['ACCEPTED', 'DECLINED', 'COMPLETED'].includes(status)) {
             return res.status(400).json({
                 success: false,
                 message: 'Invalid status'
@@ -135,11 +135,21 @@ export const updateBookingStatus = async (req, res) => {
         await booking.save();
 
         // Create notification for the user
-        const notificationTitle = status === 'ACCEPTED' ? 'Booking Accepted' : 'Booking Declined';
-        const notificationMessage = status === 'ACCEPTED'
-            ? `Good news! Your booking for ${booking.service} has been accepted.`
-            : `Sorry, your booking for ${booking.service} has been declined.`;
-        const notificationType = status === 'ACCEPTED' ? 'BOOKING_ACCEPTED' : 'BOOKING_DECLINED';
+        let notificationTitle, notificationMessage, notificationType;
+
+        if (status === 'ACCEPTED') {
+            notificationTitle = 'Booking Accepted';
+            notificationMessage = `Good news! Your booking for ${booking.service} has been accepted.`;
+            notificationType = 'BOOKING_ACCEPTED';
+        } else if (status === 'DECLINED') {
+            notificationTitle = 'Booking Declined';
+            notificationMessage = `Sorry, your booking for ${booking.service} has been declined.`;
+            notificationType = 'BOOKING_DECLINED';
+        } else if (status === 'COMPLETED') {
+            notificationTitle = 'Booking Completed';
+            notificationMessage = `Your appointment for ${booking.service} is complete. We hope you enjoyed it! Please leave a review.`;
+            notificationType = 'BOOKING_COMPLETED';
+        }
 
         await Notification.create({
             user_id: booking.user_id,
@@ -150,7 +160,7 @@ export const updateBookingStatus = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: `Booking ${status.toLowerCase()} successfully`,
+            message: `Booking marked as ${status.toLowerCase()}`,
             data: booking
         });
     } catch (error) {
