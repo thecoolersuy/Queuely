@@ -536,7 +536,7 @@ const BusinessDashboard = () => {
                 )}
 
                 {activeView === 'profile' && (
-                    <BusinessProfile onProfileUpdate={refreshUser} />
+                    <BusinessProfile onProfileUpdate={refreshUser} isDarkMode={isDarkMode} />
                 )}
 
                 {/* Edit Service Modal */}

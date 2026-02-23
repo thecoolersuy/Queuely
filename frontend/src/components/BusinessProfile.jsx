@@ -18,7 +18,7 @@ import {
 import axios from 'axios';
 import { countries } from '../utils/countries';
 
-const BusinessProfile = ({ onProfileUpdate }) => {
+const BusinessProfile = ({ onProfileUpdate, isDarkMode }) => {
     const [profile, setProfile] = useState({
         shopName: '',
         firstName: '',
@@ -143,10 +143,10 @@ const BusinessProfile = ({ onProfileUpdate }) => {
         padding: '12px 16px',
         paddingRight: '40px',
         borderRadius: '12px',
-        border: `2px solid ${focusedField === fieldName ? accentColor : '#F3F4F6'}`,
-        backgroundColor: focusedField === fieldName ? 'white' : '#F9FAFB',
+        border: `2px solid ${focusedField === fieldName ? accentColor : inputBorder}`,
+        backgroundColor: focusedField === fieldName ? (isDarkMode ? '#000000' : 'white') : inputBg,
         fontSize: '15px',
-        color: '#1F2937',
+        color: isDarkMode ? '#F3F4F6' : '#1F2937',
         transition: 'all 0.2s ease',
         outline: 'none',
         boxShadow: focusedField === fieldName ? `0 0 0 4px ${lightBlue}` : 'none'
@@ -156,17 +156,23 @@ const BusinessProfile = ({ onProfileUpdate }) => {
         display: 'block',
         fontSize: '14px',
         fontWeight: '600',
-        color: '#4B5563',
+        color: isDarkMode ? '#E5E7EB' : '#4B5563',
         marginBottom: '8px',
         marginLeft: '4px'
     };
 
+    const textColor = isDarkMode ? '#F9FAFB' : '#111827';
+    const subTextColor = isDarkMode ? '#9CA3AF' : '#6B7280';
+    const cardBg = isDarkMode ? '#1E1E1E' : '#FFFFFF';
+    const inputBg = isDarkMode ? '#121212' : '#F9FAFB';
+    const inputBorder = isDarkMode ? '#2A2A2A' : '#F3F4F6';
+
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px', flexWrap: 'wrap', gap: '20px' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>Account Settings</h1>
-                    <p style={{ color: '#6B7280', fontSize: '15px' }}>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', color: textColor, marginBottom: '8px' }}>Account Settings</h1>
+                    <p style={{ color: subTextColor, fontSize: '15px' }}>
                         Here you can edit public information about yourself.<br />
                         The changes will be displayed for other users within 5 minutes.
                     </p>
@@ -192,7 +198,7 @@ const BusinessProfile = ({ onProfileUpdate }) => {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
                 {/* Left Column - Form */}
-                <div style={{ flex: '1', minWidth: '500px' }}>
+                <div style={{ flex: '1 1 320px', order: window.innerWidth < 768 ? 2 : 1 }}>
 
                     <div style={{ marginBottom: '24px' }}>
                         <label style={labelStyle}>Email address</label>
@@ -203,17 +209,18 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                                 disabled
                                 style={{
                                     ...inputStyle('email'),
-                                    backgroundColor: '#F3F4F6',
-                                    color: '#9CA3AF',
-                                    cursor: 'not-allowed'
+                                    backgroundColor: isDarkMode ? '#1a1a1a' : '#F3F4F6',
+                                    color: isDarkMode ? '#666' : '#9CA3AF',
+                                    cursor: 'not-allowed',
+                                    borderColor: isDarkMode ? '#222' : '#F3F4F6'
                                 }}
                             />
                             <AtSign size={18} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }} />
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
-                        <div style={{ flex: '1' }}>
+                    <div style={{ display: 'flex', gap: '20px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                        <div style={{ flex: '1', minWidth: '200px' }}>
                             <label style={labelStyle}>First Name</label>
                             <div style={{ position: 'relative' }}>
                                 <input
@@ -235,7 +242,7 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                                 )}
                             </div>
                         </div>
-                        <div style={{ flex: '1' }}>
+                        <div style={{ flex: '1', minWidth: '200px' }}>
                             <label style={labelStyle}>Last Name</label>
                             <div style={{ position: 'relative' }}>
                                 <input
@@ -293,8 +300,8 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
-                        <div style={{ flex: '1' }}>
+                    <div style={{ display: 'flex', gap: '20px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                        <div style={{ flex: '1', minWidth: '240px' }}>
                             <label style={labelStyle}>Country</label>
                             <div style={{ position: 'relative' }}>
                                 <select
@@ -319,7 +326,7 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                             </div>
                         </div>
                         {profile.country === 'NP' && (
-                            <div style={{ flex: '1' }}>
+                            <div style={{ flex: '1', minWidth: '240px' }}>
                                 <label style={labelStyle}>Local Location</label>
                                 <div style={{ position: 'relative' }}>
                                     <input
@@ -338,7 +345,7 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                         )}
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '40px' }}>
+                    <div style={{ display: 'flex', justifyContent: window.innerWidth < 768 ? 'center' : 'flex-start', marginTop: '40px' }}>
                         <button
                             type="submit"
                             disabled={saving}
@@ -369,9 +376,9 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                 </div>
 
                 {/* Right Column - Profile Photo */}
-                <div style={{ width: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ flex: '0 0 100%', maxWidth: '300px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', order: window.innerWidth < 768 ? 1 : 2 }}>
                     <div style={{ alignSelf: 'flex-start', marginBottom: '20px' }}>
-                        <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#111827' }}>Profile photo</h3>
+                        <h3 style={{ fontSize: '16px', fontWeight: '700', color: textColor }}>Profile photo</h3>
                     </div>
 
                     <div style={{ position: 'relative', width: '220px', height: '220px', marginBottom: '30px' }}>
@@ -380,9 +387,9 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                             height: '100%',
                             borderRadius: '50%',
                             overflow: 'hidden',
-                            border: `6px solid white`,
-                            boxShadow: '0 20px 40px -10px rgba(0,0,0,0.2)',
-                            backgroundColor: '#F3F4F6',
+                            border: `6px solid ${isDarkMode ? '#2a2a2a' : 'white'}`,
+                            boxShadow: isDarkMode ? '0 20px 40px -10px rgba(0,0,0,0.5)' : '0 20px 40px -10px rgba(0,0,0,0.2)',
+                            backgroundColor: isDarkMode ? '#121212' : '#F3F4F6',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -404,13 +411,13 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                                 width: '45px',
                                 height: '45px',
                                 borderRadius: '50%',
-                                backgroundColor: 'white',
-                                border: '1px solid #E5E7EB',
+                                backgroundColor: isDarkMode ? '#1E1E1E' : 'white',
+                                border: `1px solid ${isDarkMode ? '#333' : '#E5E7EB'}`,
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 cursor: 'pointer',
-                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
                                 transition: 'transform 0.2s ease'
                             }}
                         >
@@ -429,21 +436,21 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                         <div style={{
                             padding: '20px',
                             borderRadius: '20px',
-                            backgroundColor: '#F9FAFB',
-                            border: '1px dashed #D1D5DB'
+                            backgroundColor: isDarkMode ? '#121212' : '#F9FAFB',
+                            border: `1px dashed ${isDarkMode ? '#333' : '#D1D5DB'}`
                         }}>
                             <Upload size={24} color="#9CA3AF" style={{ marginBottom: '10px' }} />
-                            <p style={{ fontSize: '13px', color: '#6B7280', fontWeight: '500' }}>
+                            <p style={{ fontSize: '13px', color: subTextColor, fontWeight: '500' }}>
                                 Drag and drop your image here or <label htmlFor="profile-upload" style={{ color: accentColor, cursor: 'pointer', fontWeight: '700' }}>browse</label>
                             </p>
-                            <p style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '5px' }}>
+                            <p style={{ fontSize: '11px', color: isDarkMode ? '#888' : '#9CA3AF', marginTop: '5px' }}>
                                 JPG, PNG up to 5MB
                             </p>
                         </div>
                     </div>
 
                     <div style={{ marginTop: '40px', width: '100%' }}>
-                        <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#111827', marginBottom: '15px' }}>Business Focus</h4>
+                        <h4 style={{ fontSize: '14px', fontWeight: '700', color: textColor, marginBottom: '15px' }}>Business Focus</h4>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             {[
                                 'Classic Cut', 'Modern Fade', 'Beard Trim',
@@ -464,8 +471,8 @@ const BusinessProfile = ({ onProfileUpdate }) => {
                                         style={{
                                             padding: '8px 14px',
                                             borderRadius: '20px',
-                                            backgroundColor: isSelected ? '#000' : lightBlue,
-                                            color: isSelected ? '#FFF' : accentColor,
+                                            backgroundColor: isSelected ? (isDarkMode ? '#FFF' : '#000') : lightBlue,
+                                            color: isSelected ? (isDarkMode ? '#000' : '#FFF') : accentColor,
                                             fontSize: '12px',
                                             fontWeight: '600',
                                             border: `1px solid ${isSelected ? '#000' : accentColor + '33'}`,
