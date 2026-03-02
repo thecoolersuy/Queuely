@@ -882,13 +882,19 @@ select:-webkit-autofill:focus {
   border-bottom-color: #2a2a2a;
 }
 
+.dark-mode .modal-tabs {
+  background: #121212;
+  border: 1px solid #333;
+}
+
 .dark-mode .modal-tab {
   color: #888;
 }
 
 .dark-mode .modal-tab.active {
-  background: #2a2a2a;
+  background: #333;
   color: #3b82f6;
+  border: 1px solid #444;
 }
 
 .dark-mode .form-label-modal {
@@ -1479,4 +1485,75 @@ select:-webkit-autofill:focus {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Dark Mode Premium Modal Styles - Force Override */
+.dark-mode .premium-modal,
+.dark-mode .modal-content.premium-modal {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+}
+
+.dark-mode .header-title-group h2 {
+  color: #e5e7eb !important;
+}
+
+.dark-mode .header-title-group .subtitle {
+  color: #9ca3af !important;
+}
+
+.dark-mode .modal-header {
+  border-bottom: 1px solid #333 !important;
+}
+
+.dark-mode .modal-close-btn {
+  color: #9ca3af !important;
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .modal-close-btn:hover {
+  background-color: #3d3d3d !important;
+  color: #fff !important;
+}
+
+.dark-mode .form-group-premium label {
+  color: #ffffff !important; /* Changed to white as requested */
+}
+
+.dark-mode .form-group-premium input,
+.dark-mode .form-group-premium textarea {
+  background-color: #2d2d2d !important;
+  border: 1px solid #404040 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .form-group-premium input:focus,
+.dark-mode .form-group-premium textarea:focus {
+  background-color: #333 !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark-mode .modal-footer-premium {
+  background-color: #1a1a1a !important;
+  border-top: 1px solid #333 !important;
+}
+
+.dark-mode .btn-ghost {
+  color: #d1d5db !important;
+}
+
+.dark-mode .btn-ghost:hover {
+  background-color: #2d2d2d !important;
+  color: #fff !important;
+}
+
+.dark-mode .btn-secondary-premium {
+  background-color: #2d2d2d !important;
+  color: #e5e7eb !important;
+  border: 1px solid #404040 !important;
+}
+
+.dark-mode .btn-secondary-premium:hover {
+  background-color: #3d3d3d !important;
 }
