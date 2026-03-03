@@ -585,10 +585,19 @@
         margin: 1rem auto;
     }
 
+    .booking-main {
+        gap: 2rem;
+    }
+
     .section-title {
         font-size: 1.5rem;
         margin-bottom: 1.25rem;
-        text-align: center;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
 
     .services-grid {
@@ -637,14 +646,11 @@
         width: 100%;
     }
 
-    .logout-btn {
-        font-size: 0.85rem;
-    }
-
+    .logout-btn,
     .register-btn {
         width: 100%;
         text-align: center;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 
     .date-item {
