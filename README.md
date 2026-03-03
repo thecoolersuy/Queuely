@@ -1,6 +1,8 @@
 ## About Project
 A premium barbershop system for barbershop owners using PERN stack, that helps barbershop owners maintain their barbershop prevented long awaited lines, and help customers save time and choose their services and barbers digitally. This website modernizes the traditional barbershop flaws with help of payment gateways, and booking implementation.
 
+## Run: npm run all 
+
 ## Tech Stacks Used for this project:
 
 <img width="60" height="60" alt="express" src="https://github.com/user-attachments/assets/c1f54cb0-5c13-444d-b60d-364bc1538466" />
